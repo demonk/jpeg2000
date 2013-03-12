@@ -1,0 +1,21 @@
+﻿Build started 3/13/2013 01:24:57.
+     1>Project "E:\task\JPEG2000\Projects\JPEG2000\JPEG2000_Demo\JPEG2000_Demo.vcxproj" on node 3 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\JPEG2000_Demo.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         All outputs are up-to-date.
+       Link:
+         D:\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Demo.exe" /NOLOGO E:\task\JPEG2000\Projects\JPEG2000\/Debug/JPEG2000_Lib.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\JPEG2000_Demo.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Demo.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Demo.lib" /MACHINE:X86 Debug\JPEG2000_Demo.obj
+         E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Lib.lib
+         LINK : E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Demo.exe not found or not built by the last incremental link; performing full link
+         JPEG2000_Demo.vcxproj -> E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Demo.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Demo.exe;#1" /manifest Debug\JPEG2000_Demo.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "Debug\JPEG2000_Demo.unsuccessfulbuild".
+         Touching "Debug\JPEG2000_Demo.lastbuildstate".
+     1>Done Building Project "E:\task\JPEG2000\Projects\JPEG2000\JPEG2000_Demo\JPEG2000_Demo.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.03

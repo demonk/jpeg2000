@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JPEG2000_Lib", "JPEG2000\JPEG2000.vcxproj", "{8732C025-0FC9-48A2-B9FD-B7CD9DFDFB53}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JPEG2000_Demo", "JPEG2000_Demo\JPEG2000_Demo.vcxproj", "{FBE920E0-A787-41B0-9158-94757EBAAC59}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8732C025-0FC9-48A2-B9FD-B7CD9DFDFB53}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8732C025-0FC9-48A2-B9FD-B7CD9DFDFB53}.Debug|Win32.Build.0 = Debug|Win32
+		{8732C025-0FC9-48A2-B9FD-B7CD9DFDFB53}.Release|Win32.ActiveCfg = Release|Win32
+		{8732C025-0FC9-48A2-B9FD-B7CD9DFDFB53}.Release|Win32.Build.0 = Release|Win32
+		{FBE920E0-A787-41B0-9158-94757EBAAC59}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FBE920E0-A787-41B0-9158-94757EBAAC59}.Debug|Win32.Build.0 = Debug|Win32
+		{FBE920E0-A787-41B0-9158-94757EBAAC59}.Release|Win32.ActiveCfg = Release|Win32
+		{FBE920E0-A787-41B0-9158-94757EBAAC59}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

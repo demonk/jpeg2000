@@ -1,0 +1,21 @@
+﻿Build started 3/13/2013 01:24:56.
+     1>Project "E:\task\JPEG2000\Projects\JPEG2000\JPEG2000\JPEG2000.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Touching "Debug\JPEG2000_Lib.unsuccessfulbuild".
+       ClCompile:
+         D:\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Stream.cpp
+         Stream.cpp
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000\stream.cpp(104): warning C4244: '=' : conversion from 'std::streamoff' to 'long', possible loss of data
+       Lib:
+         D:\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Lib.lib" /NOLOGO Debug\Image.obj
+         Debug\Logger.obj
+         Debug\Stream.obj
+         JPEG2000.vcxproj -> E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Lib.lib
+       FinalizeBuildStatus:
+         Deleting file "Debug\JPEG2000_Lib.unsuccessfulbuild".
+         Touching "Debug\JPEG2000_Lib.lastbuildstate".
+     1>Done Building Project "E:\task\JPEG2000\Projects\JPEG2000\JPEG2000\JPEG2000.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.04
