@@ -1,21 +1,21 @@
-﻿Build started 3/13/2013 01:24:56.
-     1>Project "E:\task\JPEG2000\Projects\JPEG2000\JPEG2000\JPEG2000.vcxproj" on node 2 (build target(s)).
+﻿Build started 2013/3/13  15:30:46.
+     1>Project "E:\JPEG2000\useful\Projects\jpeg2000\JPEG2000\JPEG2000.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Touching "Debug\JPEG2000_Lib.unsuccessfulbuild".
+         Creating "Debug\JPEG2000_Lib.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
          D:\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Stream.cpp
          Stream.cpp
-     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000\stream.cpp(104): warning C4244: '=' : conversion from 'std::streamoff' to 'long', possible loss of data
+     1>e:\jpeg2000\useful\projects\jpeg2000\jpeg2000\stream.cpp(102): warning C4244: '=' : conversion from 'std::streamoff' to 'long', possible loss of data
        Lib:
-         D:\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Lib.lib" /NOLOGO Debug\Image.obj
+         D:\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"E:\JPEG2000\useful\Projects\jpeg2000\Debug\JPEG2000_Lib.lib" /NOLOGO Debug\Image.obj
          Debug\Logger.obj
          Debug\Stream.obj
-         JPEG2000.vcxproj -> E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Lib.lib
+         JPEG2000.vcxproj -> E:\JPEG2000\useful\Projects\jpeg2000\Debug\JPEG2000_Lib.lib
        FinalizeBuildStatus:
          Deleting file "Debug\JPEG2000_Lib.unsuccessfulbuild".
          Touching "Debug\JPEG2000_Lib.lastbuildstate".
-     1>Done Building Project "E:\task\JPEG2000\Projects\JPEG2000\JPEG2000\JPEG2000.vcxproj" (build target(s)).
+     1>Done Building Project "E:\JPEG2000\useful\Projects\jpeg2000\JPEG2000\JPEG2000.vcxproj" (build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.04
+Time Elapsed 00:00:01.31

@@ -14,7 +14,11 @@ int main()
 	wchar_t fileName[]=L"test.txt";
 	Stream *inStream=new Stream(fileName,"rbe");
 	if(inStream->open()>0)
-		{inStream->read();
+		{
+			char* buffer;
+			if(inStream->read(buffer))
+				printf ("%s\n",buffer);
+			
 	}
 	else
 		Logger::error("error");

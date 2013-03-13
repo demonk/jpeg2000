@@ -20,7 +20,7 @@ namespace JPEG2000
 
 	class Stream
 	{
-	public:
+	private:
 		int m_openMode;
 		int m_bufMode;
 		int m_flags;
@@ -40,21 +40,22 @@ namespace JPEG2000
 
 
 	private:
-		int CalMode(const char *s);
+		int CalMode(const char *s);//计算打开模式
 	protected:
-
 
 	public:
 		Stream(){}
 		Stream(wchar_t* fileName,const char *mode);
 		~Stream();
 
-		void setInputStream(std::fstream *in);//需要指针,流不可复制
-		std::fstream* getInputStream();
+		void setStream(std::fstream *in);//需要指针,流不可复制
+		std::fstream* getStream();
+
+		int write(const char *data,long size,bool app);
+		bool canWrite();
 
 		int open();
-		int read();
-		int write();
+		int read(char*& buffer);
 		long seek();
 		int close();
 	};

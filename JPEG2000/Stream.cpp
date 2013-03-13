@@ -89,10 +89,8 @@ Stream::~Stream()
 
 int Stream::open()
 {
-	//std::fstream inFile;
 	this->stream=new std::fstream;
 	this->stream->open(this->p_fileName,this->m_flags);
-	//inFile.open("test.txt",std::ios::in|std::ios::out|std::ios::binary|std::ios::ate);
 	if(!this->stream->good())
 	{
 		Logger::error("open file failed");
@@ -102,32 +100,56 @@ int Stream::open()
 	std::streamoff pos=this->stream->tellg();
 	
 	this->m_size=this->stream->tellg();
-	std::cout<<this->m_size;
 	this->stream->seekg(0,std::ios::beg);
 	return 1;
 }
 
-int Stream::read()
+int Stream::read(char *&buffer)
 {
 	if(this->stream==NULL)
 	{
 		return -1;
 	}
 
-	char *buffer=new char[this->m_size];
-	
+	buffer=new char[this->m_size];
 	this->stream->read(buffer,this->m_size);
-	Logger::debug(buffer);
-	delete[] buffer;
-	return 0;
+
+	return 1;
 }
 
-void Stream::setInputStream(std::fstream *in)
+int Stream::write(const char *data,long size,bool app)
+{
+	if(this->stream!=NULL&&!this->canWrite())
+	{
+		return -1;
+	}
+	if(app)
+	{
+		this->stream->seekp(0,std::ios::end);
+	}else{
+		this->stream->seekp(0,std::ios::beg);
+	}
+
+	this->stream->write(data,size);
+
+	return 1;
+}
+
+void Stream::setStream(std::fstream *in)
 {
 	this->stream=in;
 }
 
-std::fstream* Stream::getInputStream()
+std::fstream* Stream::getStream()
 {
 	return this->stream;
+}
+
+bool Stream::canWrite()
+{
+	if(this->m_flags&std::ios::out)
+	{
+		return true;
+	}
+	return false;
 }
