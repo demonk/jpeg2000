@@ -1,15 +1,13 @@
-﻿Build started 3/13/2013 22:50:50.
+﻿Build started 3/14/2013 00:52:54.
      1>Project "E:\task\JPEG2000\Projects\JPEG2000\JPEG2000_Demo\JPEG2000_Demo.vcxproj" on node 3 (build target(s)).
      1>InitializeBuildStatus:
-         Touching "Debug\JPEG2000_Demo.unsuccessfulbuild".
+         Creating "Debug\JPEG2000_Demo.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
          D:\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /IE:\task\JPEG2000\Projects\JPEG2000\\JPEG2000 /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt JPEG2000_Demo.cpp
          JPEG2000_Demo.cpp
-     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\jpeg2000_demo.cpp(24): warning C4244: 'argument' : conversion from 'std::streamoff' to 'long', possible loss of data
        Link:
          D:\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Demo.exe" /NOLOGO E:\task\JPEG2000\Projects\JPEG2000\/Debug/JPEG2000_Lib.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\JPEG2000_Demo.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Demo.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Demo.lib" /MACHINE:X86 Debug\JPEG2000_Demo.obj
          E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Lib.lib
-         LINK : E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Demo.exe not found or not built by the last incremental link; performing full link
          JPEG2000_Demo.vcxproj -> E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Demo.exe
        Manifest:
          C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Demo.exe;#1" /manifest Debug\JPEG2000_Demo.exe.intermediate.manifest
@@ -20,4 +18,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.41
+Time Elapsed 00:00:01.42

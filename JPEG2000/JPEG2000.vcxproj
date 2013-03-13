@@ -63,11 +63,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="File.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Stream.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="File.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Stream.cpp" />

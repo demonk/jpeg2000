@@ -1,6 +1,7 @@
 
 #include <fstream>
 #include <iostream>
+#include "File.h"
 #ifndef LOGGER
 #include "Logger.h"
 #endif
@@ -13,6 +14,11 @@
 #define STREAM_BINARY 0x0008//0000 0000 0000 1000
 #define STREAM_CREATE 0x0010//0000 0000 0001 0000
 #define STREAM_ATE 0x0020//0000 0000 0010 0000
+
+#define STREAM_EOF -2
+#define STREAM_ERROR -1
+
+#define STREAM_BUFFER_SIZE 1024*10 //10K
 
 namespace JPEG2000
 {
@@ -27,32 +33,32 @@ namespace JPEG2000
 		int m_count;
 		long m_rwCount;
 		long m_rwLimit;
+
 		unsigned char *ptr;
 		unsigned char *p_bufBase;
 		unsigned char *p_bufStart;
-		wchar_t *p_fileName;
 		unsigned char mTinyBuf[STREAM_MAXPUTBACK+1];
 
-		long m_size;
-		std::ifstream *stream;
+		std::fstream *stream;
+		File* file;
 
-
+		std::streamoff img_pos;
 	private:
 		int CalMode(const char *s);//计算打开模式
 	protected:
+		void setFile(File* file);
 
 	public:
-		Stream(){}
-		Stream(wchar_t* fileName,const char *mode);
+		Stream();
 		~Stream();
 
-		void setStream(std::ifstream *in);//需要指针,流不可复制
-		std::ifstream* getStream();
+		void setStream(std::fstream *in);//需要指针,流不可复制
+		std::fstream* getStream();
+		File* getFile();
 
-		int write(const char *data,long size,bool app,const char *file,const char *mode);
-		bool canWrite();
+		int write(const char *data,long size);
 
-		int open();
+		int open(const char* fileName,const char *mode);
 		int read(char*& buffer);
 		long seek();
 		int close();

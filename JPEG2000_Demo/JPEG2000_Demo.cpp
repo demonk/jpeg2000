@@ -11,24 +11,33 @@ int main()
 {
 	//Image *image=new Image("set");
 
-	char *inFile="fstream.doc";
-	const char *outFile="fstream_out.doc";
+	char *inFile="result.mdb";
+	const char *outFile="result_out.mdb";
 
-	Stream *inStream=new Stream(inFile,"rbe");
-
-	if(inStream->open()>0)
+	Stream *inStream=new Stream();
+	Stream *outStream=new Stream();
+	if(inStream->open(inFile,"rbe")>0)
+	{
+		char* buffer;
+		int size;
+		int i=0;
+		outStream->open(outFile,"wba");
+		std::fstream* stream=new std::fstream;
+		//printf ("%d",std::ios::out|std::ios::binary|std::ios::app);
+	//	stream->open(outFile,std::ios::out|std::ios::binary|std::ios::app);
+		while((size=inStream->read(buffer))>0)
 		{
-			char* buffer;
-			if(inStream->read(buffer))
-			{
-				inStream->write(buffer,inStream->getFile()->getFileSize(),false,outFile,"wb");
-			}
-			delete[] buffer;
-			inStream->close();
+			//stream->write(buffer,size);
+			outStream->write(buffer,size);
+		}
+		stream->close();
+
+		delete[] buffer;
+		inStream->close();
 	}
 	else
 		Logger::error("error");
 
 	system("pause");
-    return 0;
+	return 0;
 }

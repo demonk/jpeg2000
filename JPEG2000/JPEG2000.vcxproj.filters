@@ -42,6 +42,9 @@
     <ClInclude Include="Stream.h">
       <Filter>Header Files\File</Filter>
     </ClInclude>
+    <ClInclude Include="File.h">
+      <Filter>Header Files\File</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Logger.cpp">
@@ -52,6 +55,9 @@
     </ClCompile>
     <ClCompile Include="Image.cpp">
       <Filter>Source Files\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="File.cpp">
+      <Filter>Source Files\File</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

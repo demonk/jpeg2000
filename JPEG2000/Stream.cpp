@@ -14,7 +14,7 @@ int Stream::CalMode(const char *s)
 			openmode |= STREAM_READ;
 			break;
 		case 'w':
-			openmode |= STREAM_WRITE | STREAM_CREATE;
+			openmode |= STREAM_WRITE ;//| STREAM_CREATE;
 			break;
 		case 'b':
 			openmode |= STREAM_BINARY;
@@ -58,14 +58,16 @@ int Stream::CalMode(const char *s)
 	if (openmode & STREAM_BINARY) {
 		openflags |= std::ios::binary;
 	}
+
 	if (openmode & STREAM_CREATE) {
 		openflags |= std::ios::trunc;//create 
 	}
 
 	return openflags;
+	
 }
 
-Stream::Stream(wchar_t* fileName,const char *mode)
+Stream::Stream()
 {
 	this->m_openMode=0;
 	this->m_bufMode=0;
@@ -76,30 +78,62 @@ Stream::Stream(wchar_t* fileName,const char *mode)
 	this->ptr=0;
 	this->p_bufBase=0;
 	this->p_bufStart=0;
-	this->m_flags=this->CalMode(mode);
-	this->p_fileName=fileName;
 	this->stream=NULL;
-	this->m_size=0;
-}
+	this->img_pos=0;
 
+}
 Stream::~Stream()
 {
 
 }
 
-int Stream::open()
+void Stream::setStream(std::fstream *in)
 {
-	this->stream=new std::ifstream;
-	this->stream->open(this->p_fileName,this->m_flags);
+	this->stream=in;
+}
+
+std::fstream* Stream::getStream()
+{
+	return this->stream;
+}
+
+void Stream::setFile(File *file)
+{
+	this->file=file;
+}
+
+File* Stream::getFile()
+{
+	return this->file;
+}
+
+int Stream::close()
+{
+	this->getStream()->close();
+	delete this->stream;
+	delete this->file;
+
+	return 1;
+}
+
+int Stream::open(const char* fileName,const char *mode)
+{
+	this->setFile(new File(fileName));
+	this->m_flags=this->CalMode(mode);
+
+	this->stream=new std::fstream;
+	this->stream->open(this->getFile()->getFileName(),this->m_flags);
 	if(!this->stream->good())
 	{
 		Logger::error("open file failed");
 		return 0;
 	}
-
-	this->m_size=this->stream->tellg();
-	this->stream->seekg(0,std::ios::beg);
-
+	if(this->m_flags&std::ios::in){
+		//只是读需要
+		this->getFile()->setFileSize(this->stream->tellg());
+		this->stream->seekg(0,std::ios::beg);
+		this->img_pos=0;
+	}
 	return 1;
 }
 
@@ -107,51 +141,53 @@ int Stream::read(char *&buffer)
 {
 	if(this->stream==NULL)
 	{
-		return -1;
+		Logger::error("STREAM_ERROR");
+		return STREAM_ERROR;
+	}
+	if(this->stream->eof())
+	{
+		Logger::error("STREAM_EOF");
+		return STREAM_EOF;
 	}
 
-	buffer=new char[this->m_size];
-	this->stream->read(buffer,this->m_size);
+	int i_remain;
 
-	return 1;
+	std::streamoff leftSize=this->file->getFileSize()-this->img_pos;
+	i_remain=leftSize;
+
+	if(leftSize>=STREAM_BUFFER_SIZE)
+	{
+		leftSize=STREAM_BUFFER_SIZE;
+	}
+
+	buffer=new char[leftSize];
+	this->stream->read(buffer,leftSize);
+	this->img_pos+=leftSize;
+	return leftSize;
 }
 
-int Stream::write(const char *data,long size,bool app,const char *file="test_out.txt",const char *mode="wb")
+int Stream::write(const char *data,long size)
 {
+	/*
 	std::ofstream *out=new std::ofstream;
 	if(app)
 	{
-		//append
-		out->open(file,CalMode(mode)|std::ios::ate);
+	out->open(file,CalMode(mode)|std::ios::ate);
 	}else{
-		out->open(file,CalMode(mode));
+	out->open(file,CalMode(mode));
 	}
 
 	if(!out)
 	{
-		return -1;
-	}
-
-	out->write(data,size);
-	out->close();
-	return 1;
-}
-
-void Stream::setStream(std::ifstream *in)
-{
-	this->stream=in;
-}
-
-std::ifstream* Stream::getStream()
-{
-	return this->stream;
-}
-
-bool Stream::canWrite()
-{
-	if(this->m_flags&std::ios::out)
+	return -1;
+	}*/
+	if(this->stream==NULL)
 	{
-		return true;
+		Logger::error("STREAM_ERROR");
+		return STREAM_ERROR;
 	}
-	return false;
+
+	this->stream->write(data,size);
+
+	return 1;
 }
