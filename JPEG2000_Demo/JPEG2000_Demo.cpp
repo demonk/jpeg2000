@@ -11,13 +11,19 @@ int main()
 {
 	//Image *image=new Image("set");
 
-	wchar_t fileName[]=L"test.txt";
-	Stream *inStream=new Stream(fileName,"rbe");
+	wchar_t inFile[]=L"test.txt";
+	const char *outFile="test-out.txt";
+
+	Stream *inStream=new Stream(inFile,"rbe");
+
 	if(inStream->open()>0)
 		{
 			char* buffer;
 			if(inStream->read(buffer))
-				printf ("%s\n",buffer);
+			{
+				Logger::debug(buffer);
+				inStream->write(buffer,strlen(buffer),false,outFile,"wb");
+			}
 			
 	}
 	else

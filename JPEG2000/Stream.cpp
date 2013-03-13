@@ -89,7 +89,7 @@ Stream::~Stream()
 
 int Stream::open()
 {
-	this->stream=new std::fstream;
+	this->stream=new std::ifstream;
 	this->stream->open(this->p_fileName,this->m_flags);
 	if(!this->stream->good())
 	{
@@ -97,10 +97,9 @@ int Stream::open()
 		return 0;
 	}
 
-	std::streamoff pos=this->stream->tellg();
-	
 	this->m_size=this->stream->tellg();
 	this->stream->seekg(0,std::ios::beg);
+
 	return 1;
 }
 
@@ -117,30 +116,33 @@ int Stream::read(char *&buffer)
 	return 1;
 }
 
-int Stream::write(const char *data,long size,bool app)
+int Stream::write(const char *data,long size,bool app,const char *file="test_out.txt",const char *mode="wb")
 {
-	if(this->stream!=NULL&&!this->canWrite())
+	std::ofstream *out=new std::ofstream;
+	if(app)
+	{
+		//append
+		out->open(file,CalMode(mode)|std::ios::ate);
+	}else{
+		out->open(file,CalMode(mode));
+	}
+
+	if(!out)
 	{
 		return -1;
 	}
-	if(app)
-	{
-		this->stream->seekp(0,std::ios::end);
-	}else{
-		this->stream->seekp(0,std::ios::beg);
-	}
 
-	this->stream->write(data,size);
-
+	out->write(data,size);
+	out->close();
 	return 1;
 }
 
-void Stream::setStream(std::fstream *in)
+void Stream::setStream(std::ifstream *in)
 {
 	this->stream=in;
 }
 
-std::fstream* Stream::getStream()
+std::ifstream* Stream::getStream()
 {
 	return this->stream;
 }

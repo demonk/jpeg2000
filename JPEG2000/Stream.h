@@ -1,6 +1,5 @@
 
 #include <fstream>
-#include <streambuf>
 #include <iostream>
 #ifndef LOGGER
 #include "Logger.h"
@@ -35,8 +34,7 @@ namespace JPEG2000
 		unsigned char mTinyBuf[STREAM_MAXPUTBACK+1];
 
 		long m_size;
-		std::fstream *stream;
-
+		std::ifstream *stream;
 
 
 	private:
@@ -48,10 +46,10 @@ namespace JPEG2000
 		Stream(wchar_t* fileName,const char *mode);
 		~Stream();
 
-		void setStream(std::fstream *in);//需要指针,流不可复制
-		std::fstream* getStream();
+		void setStream(std::ifstream *in);//需要指针,流不可复制
+		std::ifstream* getStream();
 
-		int write(const char *data,long size,bool app);
+		int write(const char *data,long size,bool app,const char *file,const char *mode);
 		bool canWrite();
 
 		int open();

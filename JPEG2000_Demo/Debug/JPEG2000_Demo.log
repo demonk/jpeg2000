@@ -1,4 +1,4 @@
-﻿Build started 2013/3/13  15:30:47.
+﻿Build started 2013/3/13  19:09:38.
      1>Project "E:\JPEG2000\useful\Projects\jpeg2000\JPEG2000_Demo\JPEG2000_Demo.vcxproj" on node 3 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\JPEG2000_Demo.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -18,4 +18,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.04
+Time Elapsed 00:00:00.70
