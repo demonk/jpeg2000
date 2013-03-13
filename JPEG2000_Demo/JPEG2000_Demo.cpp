@@ -11,8 +11,8 @@ int main()
 {
 	//Image *image=new Image("set");
 
-	wchar_t inFile[]=L"test.txt";
-	const char *outFile="test-out.txt";
+	char *inFile="fstream.doc";
+	const char *outFile="fstream_out.doc";
 
 	Stream *inStream=new Stream(inFile,"rbe");
 
@@ -21,10 +21,10 @@ int main()
 			char* buffer;
 			if(inStream->read(buffer))
 			{
-				Logger::debug(buffer);
-				inStream->write(buffer,strlen(buffer),false,outFile,"wb");
+				inStream->write(buffer,inStream->getFile()->getFileSize(),false,outFile,"wb");
 			}
-			
+			delete[] buffer;
+			inStream->close();
 	}
 	else
 		Logger::error("error");
