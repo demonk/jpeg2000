@@ -1,11 +1,21 @@
-﻿Build started 3/14/2013 00:52:54.
+﻿Build started 3/31/2013 21:37:23.
      1>Project "E:\task\JPEG2000\Projects\JPEG2000\JPEG2000\JPEG2000.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Creating "Debug\JPEG2000_Lib.unsuccessfulbuild" because "AlwaysCreate" was specified.
+         Touching "Debug\JPEG2000_Lib.unsuccessfulbuild".
        ClCompile:
-         All outputs are up-to-date.
+         D:\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt IOStream.cpp jp2Writer.cpp
+         jp2Writer.cpp
+         IOStream.cpp
+         Generating Code...
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000\iostream.cpp(48): warning C4715: 'IOStream::readByte' : not all control paths return a value
        Lib:
-         All outputs are up-to-date.
+         D:\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Lib.lib" /NOLOGO Debug\IOStream.obj
+         Debug\j2kCoder.obj
+         Debug\j2kTag.obj
+         Debug\j2kTileCoder.obj
+         Debug\jp2Writer.obj
+         Debug\Logger.obj
+         Debug\jpegMath.obj
          JPEG2000.vcxproj -> E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Lib.lib
        FinalizeBuildStatus:
          Deleting file "Debug\JPEG2000_Lib.unsuccessfulbuild".
@@ -14,4 +24,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.11
+Time Elapsed 00:00:01.13

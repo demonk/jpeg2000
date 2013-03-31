@@ -1,5 +1,4 @@
 #include "File.h"
-using namespace JPEG2000;
 
 File::File(const char* fileName)
 {

@@ -1,5 +1,4 @@
 #include "Logger.h"
-using namespace JPEG2000;
 
 void Logger::debug(std::string msg)
 {

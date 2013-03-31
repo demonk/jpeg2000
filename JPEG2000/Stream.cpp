@@ -1,7 +1,6 @@
 
 #include "Stream.h"
 #include <fcntl.h>
-using namespace JPEG2000;
 
 /* 从字符串中计算文件访问权限 */
 int Stream::CalMode(const char *s)

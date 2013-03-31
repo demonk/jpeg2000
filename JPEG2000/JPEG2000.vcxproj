@@ -63,16 +63,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="File.h" />
-    <ClInclude Include="Image.h" />
+    <ClInclude Include="CodeParam.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="IOStream.h" />
+    <ClInclude Include="j2kCoder.h" />
+    <ClInclude Include="j2kCustom.h" />
+    <ClInclude Include="j2kTag.h" />
+    <ClInclude Include="j2kTileCoder.h" />
+    <ClInclude Include="jp2Box.h" />
+    <ClInclude Include="jp2Image.h" />
+    <ClInclude Include="jp2Component.h" />
+    <ClInclude Include="jp2Struct.h" />
+    <ClInclude Include="jp2Writer.h" />
     <ClInclude Include="Logger.h" />
-    <ClInclude Include="Stream.h" />
+    <ClInclude Include="jpegMath.h" />
+    <ClInclude Include="POC.h" />
+    <ClInclude Include="PPM.h" />
+    <ClInclude Include="PPT.h" />
+    <ClInclude Include="StepSize.h" />
+    <ClInclude Include="TileCodeParam.h" />
+    <ClInclude Include="TileCompCodeParam.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="File.cpp" />
-    <ClCompile Include="Image.cpp" />
+    <ClCompile Include="IOStream.cpp" />
+    <ClCompile Include="j2kCoder.cpp" />
+    <ClCompile Include="j2kTag.cpp" />
+    <ClCompile Include="j2kTileCoder.cpp" />
+    <ClCompile Include="jp2Writer.cpp" />
     <ClCompile Include="Logger.cpp" />
-    <ClCompile Include="Stream.cpp" />
+    <ClCompile Include="jpegMath.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -2,8 +2,6 @@
 #include <iostream>
 #define LOGGER
 
-namespace JPEG2000
-{
 	class Logger
 	{
 	public:
@@ -37,4 +35,3 @@ namespace JPEG2000
 		void static warn(std::string msg);
 		void static error(std::string msg);
 	};
-}

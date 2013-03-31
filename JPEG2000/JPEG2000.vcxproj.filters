@@ -25,39 +25,90 @@
     <Filter Include="Source Files\Image">
       <UniqueIdentifier>{8a8f44c4-ceb4-4040-a52d-e9a89dbbb515}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\File">
-      <UniqueIdentifier>{5b24a9b3-9996-43b0-8948-a27687a3a095}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\File">
-      <UniqueIdentifier>{8decdce1-d57d-43c2-8f42-92e6121bad2b}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Logger.h">
       <Filter>Header Files\Common</Filter>
     </ClInclude>
-    <ClInclude Include="Image.h">
+    <ClInclude Include="CodeParam.h">
       <Filter>Header Files\Image</Filter>
     </ClInclude>
-    <ClInclude Include="Stream.h">
-      <Filter>Header Files\File</Filter>
+    <ClInclude Include="TileCodeParam.h">
+      <Filter>Header Files\Image</Filter>
     </ClInclude>
-    <ClInclude Include="File.h">
-      <Filter>Header Files\File</Filter>
+    <ClInclude Include="TileCompCodeParam.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="jpegMath.h">
+      <Filter>Header Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="PPM.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="PPT.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="POC.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="jp2Struct.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="jp2Component.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="jp2Image.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="IOStream.h">
+      <Filter>Header Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="jp2Writer.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="jp2Box.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="j2kCoder.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="StepSize.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="j2kTileCoder.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="j2kCustom.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="j2kTag.h">
+      <Filter>Header Files\Image</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Logger.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
-    <ClCompile Include="Stream.cpp">
-      <Filter>Source Files\File</Filter>
+    <ClCompile Include="jpegMath.cpp">
+      <Filter>Source Files\Common</Filter>
     </ClCompile>
-    <ClCompile Include="Image.cpp">
+    <ClCompile Include="IOStream.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="jp2Writer.cpp">
       <Filter>Source Files\Image</Filter>
     </ClCompile>
-    <ClCompile Include="File.cpp">
-      <Filter>Source Files\File</Filter>
+    <ClCompile Include="j2kCoder.cpp">
+      <Filter>Source Files\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="j2kTileCoder.cpp">
+      <Filter>Source Files\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="j2kTag.cpp">
+      <Filter>Source Files\Image</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

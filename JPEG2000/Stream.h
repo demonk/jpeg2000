@@ -1,11 +1,6 @@
 
 #include <fstream>
 #include <iostream>
-#include "File.h"
-#ifndef LOGGER
-#include "Logger.h"
-#endif
-
 
 #define STREAM_MAXPUTBACK 16
 #define STREAM_READ 0X0001//0000 0000 0000 0001
@@ -20,47 +15,43 @@
 
 #define STREAM_BUFFER_SIZE 1024*10 //10K
 
-namespace JPEG2000
+class Stream
 {
+private:
+	int m_openMode;
+	int m_bufMode;
+	int m_flags;
+	int m_bufSize;
+	int m_count;
+	long m_rwCount;
+	long m_rwLimit;
 
-	class Stream
-	{
-	private:
-		int m_openMode;
-		int m_bufMode;
-		int m_flags;
-		int m_bufSize;
-		int m_count;
-		long m_rwCount;
-		long m_rwLimit;
+	unsigned char *ptr;
+	unsigned char *p_bufBase;
+	unsigned char *p_bufStart;
+	unsigned char mTinyBuf[STREAM_MAXPUTBACK+1];
 
-		unsigned char *ptr;
-		unsigned char *p_bufBase;
-		unsigned char *p_bufStart;
-		unsigned char mTinyBuf[STREAM_MAXPUTBACK+1];
+	std::fstream *stream;
+	File* file;
 
-		std::fstream *stream;
-		File* file;
+	std::streamoff img_pos;
+private:
+	int CalMode(const char *s);//计算打开模式
+protected:
+	void setFile(File* file);
 
-		std::streamoff img_pos;
-	private:
-		int CalMode(const char *s);//计算打开模式
-	protected:
-		void setFile(File* file);
+public:
+	Stream();
+	~Stream();
 
-	public:
-		Stream();
-		~Stream();
+	void setStream(std::fstream *in);//需要指针,流不可复制
+	std::fstream* getStream();
+	File* getFile();
 
-		void setStream(std::fstream *in);//需要指针,流不可复制
-		std::fstream* getStream();
-		File* getFile();
+	int write(const char *data,long size);
 
-		int write(const char *data,long size);
-
-		int open(const char* fileName,const char *mode);
-		int read(char*& buffer);
-		long seek();
-		int close();
-	};
-}
+	int open(const char* fileName,const char *mode);
+	int read(char*& buffer);
+	long seek();
+	int close();
+};

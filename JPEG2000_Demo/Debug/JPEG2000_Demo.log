@@ -1,21 +1,164 @@
-﻿Build started 3/14/2013 00:52:54.
+﻿Build started 3/31/2013 00:41:21.
      1>Project "E:\task\JPEG2000\Projects\JPEG2000\JPEG2000_Demo\JPEG2000_Demo.vcxproj" on node 3 (build target(s)).
      1>InitializeBuildStatus:
-         Creating "Debug\JPEG2000_Demo.unsuccessfulbuild" because "AlwaysCreate" was specified.
+         Touching "Debug\JPEG2000_Demo.unsuccessfulbuild".
        ClCompile:
-         D:\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /IE:\task\JPEG2000\Projects\JPEG2000\\JPEG2000 /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt JPEG2000_Demo.cpp
-         JPEG2000_Demo.cpp
-       Link:
-         D:\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Demo.exe" /NOLOGO E:\task\JPEG2000\Projects\JPEG2000\/Debug/JPEG2000_Lib.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\JPEG2000_Demo.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Demo.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Demo.lib" /MACHINE:X86 Debug\JPEG2000_Demo.obj
-         E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Lib.lib
-         JPEG2000_Demo.vcxproj -> E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Demo.exe
-       Manifest:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"E:\task\JPEG2000\Projects\JPEG2000\Debug\JPEG2000_Demo.exe;#1" /manifest Debug\JPEG2000_Demo.exe.intermediate.manifest
-       FinalizeBuildStatus:
-         Deleting file "Debug\JPEG2000_Demo.unsuccessfulbuild".
-         Touching "Debug\JPEG2000_Demo.lastbuildstate".
-     1>Done Building Project "E:\task\JPEG2000\Projects\JPEG2000\JPEG2000_Demo\JPEG2000_Demo.vcxproj" (build target(s)).
+         D:\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /IE:\task\JPEG2000\Projects\JPEG2000\\JPEG2000 /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt demo.cpp
+         demo.cpp
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(8): error C2061: syntax error : identifier 'Image'
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(52): error C2660: 'bmptoimage' : function does not take 4 arguments
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(54): error C2653: 'jpegMath' : is not a class or namespace name
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(55): error C2653: 'jpegMath' : is not a class or namespace name
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(74): error C2819: type 'TileCodeParam' does not have an overloaded member 'operator ->'
+                 e:\task\jpeg2000\projects\jpeg2000\jpeg2000\tilecodeparam.h(11) : see declaration of 'TileCodeParam'
+                 did you intend to use '.' instead?
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(74): error C2232: '->TileCodeParam::numLayers' : left operand has 'class' type, use '.'
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(76): error C2819: type 'TileCodeParam' does not have an overloaded member 'operator ->'
+                 e:\task\jpeg2000\projects\jpeg2000\jpeg2000\tilecodeparam.h(11) : see declaration of 'TileCodeParam'
+                 did you intend to use '.' instead?
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(76): error C2232: '->TileCodeParam::numLayers' : left operand has 'class' type, use '.'
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(80): error C2819: type 'TileCodeParam' does not have an overloaded member 'operator ->'
+                 e:\task\jpeg2000\projects\jpeg2000\jpeg2000\tilecodeparam.h(11) : see declaration of 'TileCodeParam'
+                 did you intend to use '.' instead?
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(80): error C2232: '->TileCodeParam::distoratio' : left operand has 'class' type, use '.'
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(82): error C2819: type 'TileCodeParam' does not have an overloaded member 'operator ->'
+                 e:\task\jpeg2000\projects\jpeg2000\jpeg2000\tilecodeparam.h(11) : see declaration of 'TileCodeParam'
+                 did you intend to use '.' instead?
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(82): error C2232: '->TileCodeParam::rates' : left operand has 'class' type, use '.'
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(114): error C2440: 'initializing' : cannot convert from 'TileCompCodeParam *' to 'TileCompCodeParam'
+                 No constructor could take the source type, or constructor overload resolution was ambiguous
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(116): error C2819: type 'TileCompCodeParam' does not have an overloaded member 'operator ->'
+                 e:\task\jpeg2000\projects\jpeg2000\jpeg2000\tilecompcodeparam.h(7) : see declaration of 'TileCompCodeParam'
+                 did you intend to use '.' instead?
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(116): error C2232: '->TileCompCodeParam::codingStyle' : left operand has 'class' type, use '.'
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(117): error C2819: type 'TileCompCodeParam' does not have an overloaded member 'operator ->'
+                 e:\task\jpeg2000\projects\jpeg2000\jpeg2000\tilecompcodeparam.h(7) : see declaration of 'TileCompCodeParam'
+                 did you intend to use '.' instead?
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(117): error C2232: '->TileCompCodeParam::numResolutions' : left operand has 'class' type, use '.'
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(118): error C2819: type 'TileCompCodeParam' does not have an overloaded member 'operator ->'
+                 e:\task\jpeg2000\projects\jpeg2000\jpeg2000\tilecompcodeparam.h(7) : see declaration of 'TileCompCodeParam'
+                 did you intend to use '.' instead?
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(118): error C2232: '->TileCompCodeParam::codeBlockWidth' : left operand has 'class' type, use '.'
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(118): error C2653: 'jpegMath' : is not a class or namespace name
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(119): error C2819: type 'TileCompCodeParam' does not have an overloaded member 'operator ->'
+                 e:\task\jpeg2000\projects\jpeg2000\jpeg2000\tilecompcodeparam.h(7) : see declaration of 'TileCompCodeParam'
+                 did you intend to use '.' instead?
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(119): error C2232: '->TileCompCodeParam::codeBlockHeight' : left operand has 'class' type, use '.'
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(119): error C2653: 'jpegMath' : is not a class or namespace name
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(121): error C2819: type 'TileCompCodeParam' does not have an overloaded member 'operator ->'
+                 e:\task\jpeg2000\projects\jpeg2000\jpeg2000\tilecompcodeparam.h(7) : see declaration of 'TileCompCodeParam'
+                 did you intend to use '.' instead?
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(121): error C2232: '->TileCompCodeParam::codeBlockStyle' : left operand has 'class' type, use '.'
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(122): error C2819: type 'TileCompCodeParam' does not have an overloaded member 'operator ->'
+                 e:\task\jpeg2000\projects\jpeg2000\jpeg2000\tilecompcodeparam.h(7) : see declaration of 'TileCompCodeParam'
+                 did you intend to use '.' instead?
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(122): error C2232: '->TileCompCodeParam::isReversibleDWT' : left operand has 'class' type, use '.'
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(123): error C2819: type 'TileCompCodeParam' does not have an overloaded member 'operator ->'
+                 e:\task\jpeg2000\projects\jpeg2000\jpeg2000\tilecompcodeparam.h(7) : see declaration of 'TileCompCodeParam'
+                 did you intend to use '.' instead?
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(123): error C2232: '->TileCompCodeParam::quantisationStyle' : left operand has 'class' type, use '.'
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(124): error C2819: type 'TileCompCodeParam' does not have an overloaded member 'operator ->'
+                 e:\task\jpeg2000\projects\jpeg2000\jpeg2000\tilecompcodeparam.h(7) : see declaration of 'TileCompCodeParam'
+                 did you intend to use '.' instead?
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(124): error C2232: '->TileCompCodeParam::numGuardBits' : left operand has 'class' type, use '.'
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(126): error C2819: type 'TileCompCodeParam' does not have an overloaded member 'operator ->'
+                 e:\task\jpeg2000\projects\jpeg2000\jpeg2000\tilecompcodeparam.h(7) : see declaration of 'TileCompCodeParam'
+                 did you intend to use '.' instead?
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(126): error C2232: '->TileCompCodeParam::isROI' : left operand has 'class' type, use '.'
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(128): error C2819: type 'TileCompCodeParam' does not have an overloaded member 'operator ->'
+                 e:\task\jpeg2000\projects\jpeg2000\jpeg2000\tilecompcodeparam.h(7) : see declaration of 'TileCompCodeParam'
+                 did you intend to use '.' instead?
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(128): error C2232: '->TileCompCodeParam::numResolutions' : left operand has 'class' type, use '.'
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(130): error C2819: type 'TileCompCodeParam' does not have an overloaded member 'operator ->'
+                 e:\task\jpeg2000\projects\jpeg2000\jpeg2000\tilecompcodeparam.h(7) : see declaration of 'TileCompCodeParam'
+                 did you intend to use '.' instead?
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(130): error C2232: '->TileCompCodeParam::precinctWidth' : left operand has 'class' type, use '.'
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(131): error C2819: type 'TileCompCodeParam' does not have an overloaded member 'operator ->'
+                 e:\task\jpeg2000\projects\jpeg2000\jpeg2000\tilecompcodeparam.h(7) : see declaration of 'TileCompCodeParam'
+                 did you intend to use '.' instead?
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(131): error C2232: '->TileCompCodeParam::precinctHeight' : left operand has 'class' type, use '.'
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(137): error C2065: 'jp2Struct' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(137): error C2065: 'jp2Struct' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(137): error C2065: 'jp2Struct' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(137): error C2059: syntax error : ')'
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(138): error C2065: 'jp2Struct' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(138): error C2227: left of '->image' must point to class/struct/union/generic type
+                 type is ''unknown-type''
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(140): error C2065: 'jp2Struct' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(140): error C3861: 'jp2_init_stdjp2': identifier not found
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(146): error C2653: 'IOStream' : is not a class or namespace name
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(146): error C3861: 'init': identifier not found
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(148): error C2065: 'jp2Writer' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(148): error C2146: syntax error : missing ';' before identifier 'writer'
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(148): error C2065: 'writer' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(148): error C2061: syntax error : identifier 'jp2Writer'
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(149): error C2065: 'writer' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(149): error C2227: left of '->encode' must point to class/struct/union/generic type
+                 type is ''unknown-type''
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(149): error C2065: 'jp2Struct' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(156): error C2065: 'f' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(206): error C2061: syntax error : identifier 'Image'
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(319): error C2065: 'img' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(319): error C2227: left of '->XOsiz' must point to class/struct/union/generic type
+                 type is ''unknown-type''
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(320): error C2065: 'img' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(320): error C2227: left of '->YOsiz' must point to class/struct/union/generic type
+                 type is ''unknown-type''
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(321): error C2065: 'img' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(321): error C2227: left of '->Xsiz' must point to class/struct/union/generic type
+                 type is ''unknown-type''
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(321): error C2065: 'subsampling_dx' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(321): error C2065: 'subsampling_dx' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(322): error C2065: 'img' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(322): error C2227: left of '->Ysiz' must point to class/struct/union/generic type
+                 type is ''unknown-type''
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(322): error C2065: 'subsampling_dy' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(322): error C2065: 'subsampling_dy' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(324): error C2065: 'img' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(324): error C2227: left of '->numComponents' must point to class/struct/union/generic type
+                 type is ''unknown-type''
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(325): error C2065: 'img' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(325): error C2227: left of '->colorSpace' must point to class/struct/union/generic type
+                 type is ''unknown-type''
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(326): error C2065: 'img' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(326): error C2227: left of '->comps' must point to class/struct/union/generic type
+                 type is ''unknown-type''
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(326): error C2065: 'img' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(326): error C2227: left of '->numComponents' must point to class/struct/union/generic type
+                 type is ''unknown-type''
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(328): error C2065: 'img' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(328): error C2227: left of '->numComponents' must point to class/struct/union/generic type
+                 type is ''unknown-type''
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(330): error C2065: 'img' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(330): error C2227: left of '->comps' must point to class/struct/union/generic type
+                 type is ''unknown-type''
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(330): error C2228: left of '.precision' must have class/struct/union
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(331): error C2065: 'img' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(331): error C2227: left of '->comps' must point to class/struct/union/generic type
+                 type is ''unknown-type''
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(331): error C2228: left of '.bpp' must have class/struct/union
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(332): error C2065: 'img' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(332): error C2227: left of '->comps' must point to class/struct/union/generic type
+                 type is ''unknown-type''
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(332): error C2228: left of '.sgnd' must have class/struct/union
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(333): error C2065: 'img' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(333): error C2227: left of '->comps' must point to class/struct/union/generic type
+                 type is ''unknown-type''
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(333): error C2228: left of '.XRsiz' must have class/struct/union
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(333): error C2065: 'subsampling_dx' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(334): error C2065: 'img' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(334): error C2227: left of '->comps' must point to class/struct/union/generic type
+                 type is ''unknown-type''
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(334): error C2228: left of '.YRsiz' must have class/struct/union
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(334): error C2065: 'subsampling_dy' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(400): error C2065: 'img' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(400): error C2227: left of '->XOsiz' must point to class/struct/union/generic type
+                 type is ''unknown-type''
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(401): error C2065: 'img' : undeclared identifier
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(401): error C2227: left of '->YOsiz' must point to class/struct/union/generic type
+     1>e:\task\jpeg2000\projects\jpeg2000\jpeg2000_demo\demo.cpp(401): fatal error C1003: error count exceeds 100; stopping compilation
+     1>Done Building Project "E:\task\JPEG2000\Projects\JPEG2000\JPEG2000_Demo\JPEG2000_Demo.vcxproj" (build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:01.42
+Time Elapsed 00:00:00.81
