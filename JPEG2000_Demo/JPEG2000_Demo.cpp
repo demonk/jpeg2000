@@ -11,8 +11,8 @@ int main()
 {
 	//Image *image=new Image("set");
 
-	char *inFile="result.mdb";
-	const char *outFile="result_out.mdb";
+	char *inFile="3.jpg";
+	const char *outFile="3_out.jpg";
 
 	Stream *inStream=new Stream();
 	Stream *outStream=new Stream();
@@ -23,11 +23,9 @@ int main()
 		int i=0;
 		outStream->open(outFile,"wba");
 		std::fstream* stream=new std::fstream;
-		//printf ("%d",std::ios::out|std::ios::binary|std::ios::app);
-	//	stream->open(outFile,std::ios::out|std::ios::binary|std::ios::app);
+
 		while((size=inStream->read(buffer))>0)
 		{
-			//stream->write(buffer,size);
 			outStream->write(buffer,size);
 		}
 		stream->close();
@@ -38,6 +36,6 @@ int main()
 	else
 		Logger::error("error");
 
-	system("pause");
+	//system("pause");
 	return 0;
 }

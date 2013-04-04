@@ -87,6 +87,12 @@
     <ClInclude Include="j2kTag.h">
       <Filter>Header Files\Image</Filter>
     </ClInclude>
+    <ClInclude Include="j2kMQC.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="j2kDWT.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Logger.cpp">

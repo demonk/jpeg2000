@@ -68,6 +68,8 @@
     <ClInclude Include="IOStream.h" />
     <ClInclude Include="j2kCoder.h" />
     <ClInclude Include="j2kCustom.h" />
+    <ClInclude Include="j2kDWT.h" />
+    <ClInclude Include="j2kMQC.h" />
     <ClInclude Include="j2kTag.h" />
     <ClInclude Include="j2kTileCoder.h" />
     <ClInclude Include="jp2Box.h" />
