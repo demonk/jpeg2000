@@ -14,7 +14,67 @@ void j2kTag::resetTag(j2kTagTree *tree)
 	}
 }
 
-j2kTagTree * j2kTag::createTagTree(int sh,int sv)
+void j2kTag::setValue(j2kTagTree *tree,int leafno,int value)
+{
+	j2kTagNode *node=&tree->nodes[leafno];
+	while(node&&node->value>value)
+	{
+		node->value=value;
+		node=node->parent;
+	}
+}
+
+void j2kTag::encode(j2kTagTree *tree,int leafno,int threashOld)
+{
+	j2kTagNode *stk[31];
+	j2kTagNode **stkPointer=stk;
+	j2kTagNode *node=&tree->nodes[leafno];
+
+	while(node->parent)
+	{
+		*stkPointer++=node;
+		node=node->parent;
+	}
+
+	int low=0;
+
+	while(true)
+	{
+
+		//以下保证node->low与low之间都保持最大
+		if(low>node->low)
+		{
+			node->low=low;
+		}else{
+			low=node->low;
+		}
+		//////////////////////////////////////////////////////////////////////////
+
+		while(low<threashOld)
+		{
+			if(low>=node->value)
+			{
+				if(!node->known)
+				{
+					bitInputOutput::writeBits(1,1);
+					node->known=1;
+				}
+				break;
+			}
+			
+			bitInputOutput::writeBits(0,1);
+			++low;
+		}
+
+		node->low=low;
+
+		if(stkPointer==stk)
+			break;
+		node=*(--stkPointer);
+
+	}
+}
+j2kTagTree* j2kTag::createTagTree(int sh,int sv)
 {
 	int nplh[32];
 	int nplv[32];

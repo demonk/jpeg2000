@@ -1,6 +1,5 @@
 #include "jpegMath.h"
 
-
 int floorlog2(int a)
 {
 	int l;

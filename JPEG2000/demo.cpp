@@ -1,7 +1,8 @@
 // JPEG2000_Demo.cpp : main project file.
-#include "stdafx.h"
-#include "jp2Struct.h"
-#include "jpegMath.h"
+#include <iostream>
+#include "jp2Writer.h"
+#include "CodeParam.h"
+
 using namespace std;
 
 int bmptoimage(char *filename,jp2Image *img,int subsampling_dx,int subsampling_dy);
@@ -54,7 +55,7 @@ int main(int argc, char **argv)
 	cp.tw=int_ceildiv(img.Xsiz-cp.XTOsiz,cp.XTsiz);
 	cp.th=int_ceildiv(img.Ysiz-cp.YTOsiz,cp.YTsiz);
 
-	cp.ppm=(PPM*)malloc(sizeof(PPM));
+	cp.ppm=(j2kPPM*)malloc(sizeof(j2kPPM));
 	cp.ppm->data=0;
 	cp.ppm->data=NULL;
 	cp.ppm->previous=0;
@@ -147,10 +148,10 @@ int main(int argc, char **argv)
 		cp.isIntermedFile=0;
 
 	char *outbuf=(char*)malloc(cp.XTsiz*cp.YTsiz*cp.tw*cp.th*10*sizeof(char));
-	init((unsigned char*)outbuf,cp.XTsiz*cp.YTsiz*cp.tw*cp.th*10);
+	charInputOutput::init((unsigned char*)outbuf,cp.XTsiz*cp.YTsiz*cp.tw*cp.th*10);
 
-	
-	int len=j2kEncoder(jp2struct,&cp,outbuf);
+	jp2Writer *write=new jp2Writer();
+	int len=write->encode(jp2struct,&cp,outbuf);
 
 	if(len>0)
 	{
