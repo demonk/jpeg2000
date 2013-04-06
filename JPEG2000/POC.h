@@ -1,6 +1,6 @@
 #ifndef J2K_POC
 #define J2K_POC
-class POC
+class j2kPOC
 {
 public:
 	int resolutionStart;

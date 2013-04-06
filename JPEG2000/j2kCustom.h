@@ -55,4 +55,9 @@
 #define J2K_CCP_QNTSTY_SEQNT 2
 
 #define NULL 0
+#include "charInputOutput.cpp"
+#include "bitInputOutput.cpp"
+#include "jp2Struct.h"
+#include "jpegMath.h"
+
 #endif

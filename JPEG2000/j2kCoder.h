@@ -1,11 +1,5 @@
 #ifndef J2K_Coder
 #define J2K_Coder
-#include "j2kCustom.h"
-#include "jp2Image.h"
-#include "CodeParam.h"
-#include <iostream>
-#include "IOStream.h"
-#include "jpegMath.h"
 #include "j2kTileCoder.h"
 class j2kCoder
 {
@@ -17,10 +11,11 @@ private:
 
 		int state;
 
-		static int currectPos;
-		static int currectTileNo;
-		static int SOD_Start;
-		static int SOT_Start;
+public:
+		int currectPos;
+		int currectTileNo;
+		int SOD_Start;
+		int SOT_Start;
 
 public:
 	int j2kEncode(jp2Image *img,CodeParam *cp,char *output,int len);

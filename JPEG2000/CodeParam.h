@@ -20,6 +20,7 @@ class CodeParam
 								char *comment;
 		int *tileNo;/*tile的标识*/
 		int tileNoSize;/* tile的总数*/
+		int *matrice;
 
 int disto_alloc;		/* Allocation by rate/distortion     */
   int fixed_alloc;		/* Allocation by fixed layer         */
@@ -27,7 +28,7 @@ int disto_alloc;		/* Allocation by rate/distortion     */
 
   int tw;
 		int th;
-  PPM *ppm;
+  j2kPPM *ppm;
   TileCodeParam *tcps;
 
 

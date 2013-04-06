@@ -1,5 +1,6 @@
 #ifndef COMPONENT
 #define COMPONENT
+#include "TileCodeParam.h"
 
 class Component
 {
@@ -19,6 +20,7 @@ public:
 	int bpp;/*ÕºœÒ…Ó∂»*/
 
 	int sgnd;
+
 };
 
 #endif

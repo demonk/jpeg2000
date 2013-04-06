@@ -12,12 +12,10 @@
 #define JP2_BPCC 0x62706363
 #define JP2_JP2  0x6a703220
 
-#include "jp2Struct.h"
-#include "jp2Image.h"
-#include "CodeParam.h"
+#include "j2kCustom.h"
 #include "jp2Box.h"
-#include "IOStream.h"
 #include "j2kCoder.h"
+
 class jp2Writer
 {
 public:
