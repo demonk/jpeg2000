@@ -47,6 +47,8 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -63,15 +65,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="bitInputOutput.h" />
+    <ClInclude Include="bmpReader.h" />
+    <ClInclude Include="charInputOutput.h" />
     <ClInclude Include="CodeParam.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="IOStream.h" />
     <ClInclude Include="j2kCoder.h" />
+    <ClInclude Include="j2kConst.h" />
     <ClInclude Include="j2kCustom.h" />
     <ClInclude Include="j2kDWT.h" />
-    <ClInclude Include="j2kMQC.h" />
+    <ClInclude Include="j2kMCT.h" />
+    <ClInclude Include="j2kMQState.h" />
+    <ClInclude Include="j2kPacketIterator.h" />
+    <ClInclude Include="j2kTier1.h" />
     <ClInclude Include="j2kTag.h" />
+    <ClInclude Include="j2kTier2.h" />
     <ClInclude Include="j2kTileCoder.h" />
+    <ClInclude Include="j2kTileCoder_Custom.h" />
     <ClInclude Include="jp2Box.h" />
     <ClInclude Include="jp2Image.h" />
     <ClInclude Include="jp2Component.h" />
@@ -82,18 +92,26 @@
     <ClInclude Include="POC.h" />
     <ClInclude Include="PPM.h" />
     <ClInclude Include="PPT.h" />
+    <ClInclude Include="preProcessor.h" />
     <ClInclude Include="StepSize.h" />
     <ClInclude Include="TileCodeParam.h" />
     <ClInclude Include="TileCompCodeParam.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="IOStream.cpp" />
+    <ClCompile Include="bitInputOutput.cpp" />
+    <ClCompile Include="bmpReader.cpp" />
+    <ClCompile Include="charInputOutput.cpp" />
     <ClCompile Include="j2kCoder.cpp" />
+    <ClCompile Include="j2kPacketIterator.cpp" />
+    <ClCompile Include="j2kTier1.cpp" />
     <ClCompile Include="j2kTag.cpp" />
+    <ClCompile Include="j2kTier2.cpp" />
     <ClCompile Include="j2kTileCoder.cpp" />
+    <ClCompile Include="jp2Struct.cpp" />
     <ClCompile Include="jp2Writer.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="jpegMath.cpp" />
+    <ClCompile Include="preProcessor.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

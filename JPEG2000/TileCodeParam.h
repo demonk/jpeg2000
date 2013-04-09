@@ -14,7 +14,7 @@ public:
 	int progressionOrder;
 	int numLayers;
 	int numPocs;
-	bool isMCT;
+	int isMCT;
 	int rates[100];
 
 	float distoratio[100];/* 每一层的失真率 */

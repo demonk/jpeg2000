@@ -63,9 +63,6 @@
     <ClInclude Include="jp2Image.h">
       <Filter>Header Files\Image</Filter>
     </ClInclude>
-    <ClInclude Include="IOStream.h">
-      <Filter>Header Files\Common</Filter>
-    </ClInclude>
     <ClInclude Include="jp2Writer.h">
       <Filter>Header Files\Image</Filter>
     </ClInclude>
@@ -87,10 +84,40 @@
     <ClInclude Include="j2kTag.h">
       <Filter>Header Files\Image</Filter>
     </ClInclude>
-    <ClInclude Include="j2kMQC.h">
+    <ClInclude Include="j2kDWT.h">
       <Filter>Header Files\Image</Filter>
     </ClInclude>
-    <ClInclude Include="j2kDWT.h">
+    <ClInclude Include="j2kMCT.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="j2kTileCoder_Custom.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="j2kTier1.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="j2kTier2.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="j2kMQState.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="j2kPacketIterator.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="j2kConst.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="bitInputOutput.h">
+      <Filter>Header Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="charInputOutput.h">
+      <Filter>Header Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="bmpReader.h">
+      <Filter>Header Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="preProcessor.h">
       <Filter>Header Files\Image</Filter>
     </ClInclude>
   </ItemGroup>
@@ -99,9 +126,6 @@
       <Filter>Source Files\Common</Filter>
     </ClCompile>
     <ClCompile Include="jpegMath.cpp">
-      <Filter>Source Files\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="IOStream.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
     <ClCompile Include="jp2Writer.cpp">
@@ -114,6 +138,30 @@
       <Filter>Source Files\Image</Filter>
     </ClCompile>
     <ClCompile Include="j2kTag.cpp">
+      <Filter>Source Files\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="j2kTier1.cpp">
+      <Filter>Source Files\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="j2kTier2.cpp">
+      <Filter>Source Files\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="charInputOutput.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="bitInputOutput.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="j2kPacketIterator.cpp">
+      <Filter>Source Files\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="bmpReader.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="jp2Struct.cpp">
+      <Filter>Source Files\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="preProcessor.cpp">
       <Filter>Source Files\Image</Filter>
     </ClCompile>
   </ItemGroup>

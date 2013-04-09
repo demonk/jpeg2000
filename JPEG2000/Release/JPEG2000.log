@@ -1,0 +1,66 @@
+﻿Build started 4/7/2013 16:56:35.
+     1>Project "E:\task\JPEG2000\Projects\JPEG2000\JPEG2000\JPEG2000.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Release\JPEG2000_Lib.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         D:\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt bitInputOutput.cpp demo.cpp j2kPacketIterator.cpp j2kTier1.cpp j2kTier2.cpp jp2Writer.cpp
+         bitInputOutput.cpp
+         demo.cpp
+     1>demo.cpp(163): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 D:\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : see declaration of 'fopen'
+     1>demo.cpp(18): warning C4101: 'tcp_poc' : unreferenced local variable
+     1>demo.cpp(235): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 D:\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : see declaration of 'fopen'
+     1>demo.cpp(348): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 D:\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : see declaration of 'fopen'
+     1>demo.cpp(353): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 D:\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : see declaration of 'fopen'
+     1>demo.cpp(358): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 D:\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : see declaration of 'fopen'
+     1>demo.cpp(232): warning C4101: 'v' : unreferenced local variable
+     1>demo.cpp(225): warning C4101: 'table_B' : unreferenced local variable
+     1>demo.cpp(232): warning C4101: 'v2' : unreferenced local variable
+     1>demo.cpp(225): warning C4101: 'table_G' : unreferenced local variable
+     1>demo.cpp(225): warning C4101: 'table_R' : unreferenced local variable
+         j2kPacketIterator.cpp
+         j2kTier1.cpp
+     1>j2kTier1.cpp(41): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>j2kTier1.cpp(43): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>j2kTier1.cpp(48): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>j2kTier1.cpp(50): warning C4554: '<<' : check operator precedence for possible error; use parentheses to clarify precedence
+     1>j2kTier1.cpp(52): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>j2kTier1.cpp(55): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>j2kTier1.cpp(238): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>j2kTier1.cpp(238): warning C4244: '+=' : conversion from 'double' to 'int', possible loss of data
+     1>j2kTier1.cpp(239): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>j2kTier1.cpp(321): warning C4390: ';' : empty controlled statement found; is this the intent?
+     1>j2kTier1.cpp(359): warning C4552: '|' : operator has no effect; expected operator with side-effect
+         j2kTier2.cpp
+     1>j2kTier2.cpp(104): warning C4101: 'passno' : unreferenced local variable
+         jp2Writer.cpp
+       Link:
+         D:\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\task\JPEG2000\Projects\JPEG2000\Release\JPEG2000_Lib.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\JPEG2000_Lib.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\task\JPEG2000\Projects\JPEG2000\Release\JPEG2000_Lib.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\task\JPEG2000\Projects\JPEG2000\Release\JPEG2000_Lib.lib" /MACHINE:X86 Release\bitInputOutput.obj
+         Release\charInputOutput.obj
+         Release\demo.obj
+         Release\j2kCoder.obj
+         Release\j2kPacketIterator.obj
+         Release\j2kTier1.obj
+         Release\j2kTag.obj
+         Release\j2kTier2.obj
+         Release\j2kTileCoder.obj
+         Release\jp2Writer.obj
+         Release\Logger.obj
+         Release\jpegMath.obj
+         Generating code
+         Finished generating code
+         JPEG2000.vcxproj -> E:\task\JPEG2000\Projects\JPEG2000\Release\JPEG2000_Lib.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"E:\task\JPEG2000\Projects\JPEG2000\Release\JPEG2000_Lib.exe;#1" /manifest Release\JPEG2000_Lib.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "Release\JPEG2000_Lib.unsuccessfulbuild".
+         Touching "Release\JPEG2000_Lib.lastbuildstate".
+     1>Done Building Project "E:\task\JPEG2000\Projects\JPEG2000\JPEG2000\JPEG2000.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:04.86

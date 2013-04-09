@@ -1,20 +1,22 @@
 #include "j2kCoder.h"
-
+#include "charInputOutput.h"
 int j2kCoder::j2kEncode(jp2Image *img,CodeParam *comp,char *output,int len)
 {
 
 	FILE *file=NULL;
-	if(cp->isIntermedFile==1)
-	{
-		file=fopen(output,"wb");
-		if(!file)
-			return -1;
-	}
-	unsigned char *dest=(unsigned char *)malloc(len);
-	charInputOutput::init(dest,len);
+	char *dest=NULL;
 
 	image=img;
 	cp=comp;
+// 	if(cp->isIntermedFile==1)
+// 	{
+// 		file=fopen(output,"wb");
+// 		if(!file)
+// 			return -1;
+// 
+// 		unsigned char *dest=(unsigned char *)malloc(len);
+// 		charInputOutput::init(dest,len);
+// 	}
 
 	state=J2K_STATE_MHSOC;//SOC码流开始 
 	writeSOC();
@@ -25,6 +27,8 @@ int j2kCoder::j2kEncode(jp2Image *img,CodeParam *comp,char *output,int len)
 
 	writeCOD();//COD标记,写入默认编码形式
 	writeQCD();//QCD标记,写入默认量化 
+	//以上为必要的主标头
+	//////////////////////////////////////////////////////////////////////////
 
 	//遍历分量看对应的tile是否有开ROI,有就设置标记
 	for(int compno=0;compno<image->numComponents;compno++)
@@ -35,77 +39,84 @@ int j2kCoder::j2kEncode(jp2Image *img,CodeParam *comp,char *output,int len)
 	}
 
 	if(cp->comment!=NULL)
-	{
 		writeComment();
-	}
 
-	if(cp->isIntermedFile==1)
-	{
+	//////////////////////////////////////////////////////////////////////////
+	//以上为可选的主标头
 
-		currectPos=charInputOutput::getPosition();
-		fwrite(dest,1,currectPos,file);
-	}
+// 	if(cp->isIntermedFile==1)
+// 	{
+// 		currectPos=charInputOutput::getPosition();
+// 		fwrite(dest,1,currectPos,file);
+// 	}
 
-	tileCoder=new j2kTileCoder(cp,image,currectTileNo);
+	tileCoder=new j2kTileCoder(comp,img,currectTileNo);
+	/*
+	拼接块码流:
+	SOT->POC(可选)->PPT(可选)->PLT(可选)->COM(可选)->SOD
+	*/
 	for(int tileno=0;tileno<cp->tw*cp->th;tileno++)
 	{
-		if(cp->isIntermedFile==1)
-		{
-			free(dest);
-			dest=(unsigned char*)malloc(len);
-			charInputOutput::init(dest,len);
-		}
+// 		if(cp->isIntermedFile==1)
+// 		{
+// 			free(dest);
+// 			dest=(char*)malloc(len);
+// 			charInputOutput::init((unsigned char*)dest,len);
+// 		}
 		currectTileNo=tileno;
+		
+		tileCoder->setCurrentTile(tileno);
 		if(tileno==0)
 		{	
 			tileCoder->tcdMallocEncode();
 		}else{
 			tileCoder->tcdInitEncode();
+		}
 
 			state = J2K_STATE_TPHSOT;//SOT标记,拼接块标头
-			writeSOT();
+			writeSOT();//必需
 			state = J2K_STATE_TPH;
 
 			for(int compno=1;compno<img->numComponents;compno++)
 			{
+				//可选
 				writeCOC(compno);
 				writeQCC(compno);
-
 			}
 
 			//设置写入POC数据到TCP中
 			if(cp->tcps[tileno].numPocs)
-				writePOC();
+				writePOC();//可选
 
-			writeSOD();
-
-			if(cp->isIntermedFile==1)
-			{
-				fwrite(dest,1,charInputOutput::getPosition(),file);
-				currectPos=charInputOutput::getPosition()+currectPos;
-			}
+			
+			writeSOD();//必须
+		
+// 			if(cp->isIntermedFile==1)
+// 			{
+// 				fwrite(dest,1,charInputOutput::getPosition(),file);
+// 				currectPos=charInputOutput::getPosition()+currectPos;
+// 			}
 		}
 
-		if(cp->isIntermedFile==1)
-		{
-			free(dest);
-			dest=(unsigned char*)malloc(len);
-			charInputOutput::init(dest,len);
-		}
+// 		if(cp->isIntermedFile==1)
+// 		{
+// 			free(dest);
+// 			dest=(char*)malloc(len*sizeof(char));
+// 			charInputOutput::init((unsigned char *)dest,len);
+// 		}
 
 		writeEOC();
 
-		if(cp->isIntermedFile==1)
-		{
+// 		if(cp->isIntermedFile==1)
+// 		{
+// 			fwrite(dest,1,2,file);
+// 			free(dest);
+// 			fclose(file);
+// 		}
 
-			fwrite(dest,1,2,file);
-			free(dest);
-			fclose(file);
-
-		}
-
+		delete tileCoder;
 		return charInputOutput::getPosition()+currectPos;
-	}
+	
 }
 void j2kCoder::writeSOC()
 {

@@ -2,72 +2,75 @@
 #include <iostream>
 #include "jp2Writer.h"
 #include "CodeParam.h"
-
+#include "charInputOutput.h"
 using namespace std;
 
 int bmptoimage(char *filename,jp2Image *img,int subsampling_dx,int subsampling_dy);
 int give_progression(char progression[4]);
 int jp2_init_stdjp2(jp2Struct * jp2_struct, jp2Image * img);
+void calcStepSizes(TileCompCodeParam *tccp,int prec);
 
 int main(int argc, char **argv)
 {
 	CodeParam cp;
 	TileCodeParam tcp_init;
-	TileCompCodeParam tccp;
+	TileCompCodeParam tccp_init;
 	j2kPOC *tcp_poc;
 	jp2Image img;
 
-	int subSamplingX=400;
-	int subSamplingY=400;//样本数据大小 
+	int subSamplingX=1;
+	int subSamplingY=1;//样本数据大小 
 
-	char *inFile="1.bmp";
+	char *inFile="3.bmp";
 	char *outFile="1.jp2";
 
 	//初始化
 	cp.imageType=2;//bmp
 	cp.format=1;//jp2
-	cp.comment="JPEG2000 Test";
-	cp.disto_alloc = 0;
+	cp.comment="Created by demonk";
+	
 	cp.fixed_alloc = 0;
-	cp.fixed_quality = 0;		//add fixed_quality
+	cp.fixed_quality = 0;		//add fixed_quality,use rate,not distoratio
 	cp.isIntermedFile=0;
-	cp.XTsiz=300;
-	cp.YTsiz=300;
-	cp.XTOsiz=100;
-	cp.YTOsiz=100;
+	cp.XTsiz=400;
+	cp.YTsiz=400;//这个关系到图像原分辨率,要匹配,否则错误
+	cp.XTOsiz=0;
+	cp.YTOsiz=0;//先不偏移
+
 
 	tcp_init.numLayers=3;
-	tcp_init.rates[0]=20;
-	tcp_init.rates[1]=21;
-	tcp_init.rates[2]=22;
-	tcp_init.distoratio[0]=66.5;
-	tcp_init.distoratio[1]=55.5;
-	tcp_init.distoratio[2]=44.5;
-	tcp_init.progressionOrder=1;/* -1~4 */
+	tcp_init.rates[0]=1;//第一层一定无损,取值大于1
+	tcp_init.rates[1]=1;
+	tcp_init.rates[2]=1;//对应无损
+	cp.disto_alloc = 1;//开启质量层
 
-	tccp.numResolutions=5;
-	tccp.codeBlockWidth=64*64;
-	tccp.codeBlockHeight=64*64;
-	tccp.isROI=false;
-	
+	//fixquality
+// 	tcp_init.distoratio[0]=66.5;
+// 	tcp_init.distoratio[1]=55.5;
+// 	tcp_init.distoratio[2]=44.5;
+	tcp_init.progressionOrder=1;/* -1~4 */
+	tcp_init.codingStyle=0;
+	tcp_init.numPocs=0;
+
+	tccp_init.numResolutions=6;
+	tccp_init.codeBlockWidth=32;
+	tccp_init.codeBlockHeight=32;
+	tccp_init.isROI=0;/*开了就浮雕了*/
+	tccp_init.codingStyle=0;
+	tccp_init.isReversibleDWT=1;
+	tccp_init.quantisationStyle=0;
+	tccp_init.codeBlockStyle=0;
+	tccp_init.numGuardBits=2;
+
 	bmptoimage(inFile,&img,subSamplingX,subSamplingY);
 
 	cp.tw=int_ceildiv(img.Xsiz-cp.XTOsiz,cp.XTsiz);
 	cp.th=int_ceildiv(img.Ysiz-cp.YTOsiz,cp.YTsiz);
 
-	cp.ppm=(j2kPPM*)malloc(sizeof(j2kPPM));
-	cp.ppm->data=0;
-	cp.ppm->data=NULL;
-	cp.ppm->previous=0;
-	cp.ppm->store=0;
-
 	cp.tcps=(TileCodeParam*)malloc(cp.tw*cp.th*sizeof(TileCodeParam));
+	cp.tcps->tccps=(TileCompCodeParam*)malloc(img.numComponents*sizeof(TileCompCodeParam));
 
 	int CodingStyle=0;
-	
-	int numResolution=6;
-	int codeBlockWidth=64;
-	int codeBlockHeight=64;
 
 	for(int tileno=0;tileno<cp.th*cp.tw;tileno++)
 	{
@@ -85,19 +88,18 @@ int main(int argc, char **argv)
 		}
 
 		tcp->codingStyle=CodingStyle;
-		tcp->progressionOrder=give_progression("LRCP");
+		tcp->progressionOrder=give_progression("LRCP");//默认的渐进
 		tcp->isMCT=img.numComponents==3?1:0;
+		tcp->numLayers=1 ;
 
-		tcp->ppt->ppt=0;
-		tcp->ppt->data=NULL;
-		tcp->ppt->store=0;
 
 		//POC可选
 		//tcp->pocs=(j2kPOC*)malloc(numPocs*sizeof(j2kPOC));
 
-		int numPocs=0;//先不开POC
+		int numPocs=1;//先不开POC
+		tcp->pocUse=1;//标记此POC可用
 
-/*		for(int i=0;i<numPocs;i++)
+		for(int i=0;i<numPocs;i++)
 		{
 			// T1=0,0,1,5,3,CPRL
 			j2kPOC *poc=&tcp->pocs[i];
@@ -105,11 +107,11 @@ int main(int argc, char **argv)
 			poc->resolutionStart=0;
 			poc->componentStart=0;
 			poc->layerEnd=1;
-			poc->resolutionEnd=5;
+			poc->resolutionEnd=5;//表示只对0~3分辨率层进行调整
 			poc->componentEnd=3;
-			poc->progressionOrder=give_progression("CPRL");
+			poc->progressionOrder=give_progression("LRCP");
 			poc->tile=1;
-		}*/
+		}
 
 		tcp->numPocs=numPocs;
 
@@ -119,23 +121,26 @@ int main(int argc, char **argv)
 			TileCompCodeParam *tccp=&tcp->tccps[i];
 
 			tccp->codingStyle=CodingStyle&0x01;
-			tccp->numResolutions=numResolution;
-			tccp->codeBlockWidth=int_floorlog2(codeBlockWidth);
-			tccp->codeBlockHeight=int_floorlog2(codeBlockHeight);
+			tccp->numResolutions=tccp_init.numResolutions;
+			tccp->codeBlockWidth=int_floorlog2(tccp_init.codeBlockWidth);
+			tccp->codeBlockHeight=int_floorlog2(tccp_init.codeBlockHeight);
 
-			tccp->codeBlockStyle=0;//模式组合开关
-			tccp->isReversibleDWT=0;//非可逆
-			tccp->quantisationStyle=0;//量化模式
-			tccp->numGuardBits=2;
+			tccp->codeBlockStyle=tccp_init.codeBlockStyle;//模式组合开关
+			tccp->isReversibleDWT=tccp_init.isReversibleDWT;//可逆
+			tccp->quantisationStyle=tccp_init.quantisationStyle;//量化模式
+			tccp->numGuardBits=tccp_init.numGuardBits;
 
-			tccp->isROI=0;//非感兴趣
-
+			if(i%2==0)
+			tccp->isROI=tccp_init.isROI;//非感兴趣
+			else
+				tccp->isROI=0;
 			for(int j=0;j<tccp->numResolutions;j++)
 			{
 				tccp->precinctWidth[j]=15;
 				tccp->precinctHeight[j]=15;
 			}
 
+		calcStepSizes(tccp,img.comps[i].precision);//计算子带量化步长
 		}
 	}
 
@@ -155,7 +160,9 @@ int main(int argc, char **argv)
 
 	if(len>0)
 	{
-		FILE* file=fopen(outbuf,"wb");
+		printf ("len=%d\n",len);
+		printf ("content=%s\n",outbuf);
+		FILE* file=fopen(outFile,"wb");
 		if(file)
 		{
 			fwrite(outbuf,1,len,file);
@@ -210,7 +217,7 @@ typedef struct _iobuf FILE;
 
 int bmptoimage(char *filename,jp2Image *img,int subsampling_dx,int subsampling_dy)
 {
-	int Dim[2]={100,100};
+	int Dim[2]={0,0};//先不自定义偏移
 
 	FILE *IN;
 	FILE *Compo0 = 0, *Compo1 = 0, *Compo2 = 0;
@@ -401,7 +408,8 @@ int bmptoimage(char *filename,jp2Image *img,int subsampling_dx,int subsampling_d
 			fclose(Compo1);
 			fclose(Compo2);
 			free(RGB);
-		} else if (Info_h.biBitCount == 8 && Info_h.biCompression == 0) {
+		} 
+/*		else if (Info_h.biBitCount == 8 && Info_h.biCompression == 0) {
 			img->XOsiz = Dim[0];
 			img->YOsiz = Dim[1];
 			img->Xsiz =!Dim[0] ? (w - 1) * subsampling_dx + 1 : Dim[0] + (w -subsampling_dx )+ 1;
@@ -421,7 +429,7 @@ int bmptoimage(char *filename,jp2Image *img,int subsampling_dx,int subsampling_d
 					gray_scale = 0;
 			}
 
-			/* Place the cursor at the beginning of the image information */
+			// Place the cursor at the beginning of the image information 
 			fseek(IN, 0, SEEK_SET);
 			fseek(IN, File_h.bfOffBits, SEEK_SET);
 
@@ -519,7 +527,7 @@ int bmptoimage(char *filename,jp2Image *img,int subsampling_dx,int subsampling_d
 					gray_scale = 0;
 			}
 
-			/* Place the cursor at the beginning of the image information */
+			// Place the cursor at the beginning of the image information 
 			fseek(IN, 0, SEEK_SET);
 			fseek(IN, File_h.bfOffBits, SEEK_SET);
 
@@ -630,12 +638,14 @@ int bmptoimage(char *filename,jp2Image *img,int subsampling_dx,int subsampling_d
 					fclose(Compo2);
 			}
 			free(RGB);
-		} else
+		} */
+ else
 			fprintf(stderr,
 			"Other system than 24 bits/pixels or 8 bits (no RLE coding) is not yet implemented [%d]\n",
 			Info_h.biBitCount);
 
 		fclose(IN);
+		
 		return 1;
 	}
 }
@@ -744,4 +754,62 @@ int jp2_init_stdjp2(jp2Struct * jp2_struct, jp2Image * img)
 	jp2_struct->cl = (unsigned int *) malloc(jp2_struct->numcl * sizeof(unsigned int));
 	jp2_struct->cl[0] = JP2_JP2;	/* CL0 : JP2  */
 	return 0;
+}
+
+void encodeStepSize(int stepsize,int numbps,int *expn,int *mant)
+{
+	int p=floorlog2(stepsize)-13;//log2(stepsize)-13;
+	int n=11-floorlog2(stepsize);//11-log2(stepsize);
+	*expn=numbps-p;
+	if(n<0)
+	{
+		*mant=(stepsize>>-n)&0x7ff;
+	}else
+	{
+		*mant=(stepsize<<n)&0x7ff;
+	}
+}
+void calcStepSizes(TileCompCodeParam *tccp,int prec)
+{
+	int numbands=3*tccp->numResolutions-1;
+
+	for(int bandno=0;bandno<numbands;bandno++)
+	{
+		int resno;
+		int orient;
+		int level;
+		int gain;
+		double stepsize;
+
+		if(bandno==0)
+			{
+				resno=0;
+				orient=0;
+		}
+		else
+		{
+			resno=(bandno-1)/3+1;
+			orient=(bandno-1)%3+1;
+		}
+
+		level=tccp->numResolutions-1-resno;
+		
+		if(tccp->isReversibleDWT==0||orient==0)
+			gain=0;
+		else
+			if(orient==1||orient==2)
+				gain=1;
+			else
+				gain=2;
+
+		double norm=dwtNormsReal[orient][level];
+		stepsize=(1<<(gain+1))/norm;
+
+		encodeStepSize(
+			(int)floor(stepsize*8192.0),
+			prec+gain,
+			&tccp->stepsizes[bandno].expn,
+			&tccp->stepsizes[bandno].mant
+			);
+	}
 }

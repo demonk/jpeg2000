@@ -20,7 +20,7 @@ void j2kTierOne::tierOneInitContext()
 	//初始化MR中的上下文,有3个
 	for(int i=0;i<2;i++)
 	{
-		for(int ctx=0;i<2048;++ctx)
+		for(int ctx=0;ctx<2048;++ctx)
 		{
 			int j=(i<<11)+ctx;//(1<<11)为作标记准备
 			if(i)
@@ -33,7 +33,7 @@ void j2kTierOne::tierOneInitContext()
 	for(int ctx=0;ctx<256;++ctx)
 		spbNo[ctx]=initSPB(ctx<<4);//腾出低4位
 
-	int t,u,v;
+	double t,u,v;
 
 	for(int i=0;i<(1<<T1_NMSEDEC_BITS);i++)
 	{
@@ -41,12 +41,14 @@ void j2kTierOne::tierOneInitContext()
 		u=t;
 		v=t-1.5;
 
-		nmSeDecSig[i]=int_max(0, (int) (floor((u * u - v * v) * pow(2.0, T1_NMSEDEC_FRACBITS) + 0.5) / pow(2.0, T1_NMSEDEC_FRACBITS) * 8192.0));
-		nmSeDecSig0[i]=int_max(0, (int) (floor((u * u) * pow(2.0, T1_NMSEDEC_FRACBITS) + 0.5) / pow(2.0, T1_NMSEDEC_FRACBITS) * 8192.0));
+		double sig=(floor((u * u - v * v) * pow(2.0, T1_NMSEDEC_FRACBITS) + 0.5) / pow(2.0, T1_NMSEDEC_FRACBITS) * 8192.0);
+		nmSeDecSig[i]=int_max(0,(int)sig );
+		sig=(floor((u * u) * pow(2.0, T1_NMSEDEC_FRACBITS) + 0.5) / pow(2.0, T1_NMSEDEC_FRACBITS) * 8192.0);
+		nmSeDecSig0[i]=int_max(0, (int)sig );
 
 		u=t-1.0;
 
-		if(i&(i<<T1_NMSEDEC_BITS-1))
+		if(i&(1<<T1_NMSEDEC_BITS-1))
 		{
 			v=t-1.5;
 		}else
@@ -73,25 +75,26 @@ void j2kTierOne::tierOneEncodeCodeBlocks(j2kTileCoder_Tile *tile,TileCodeParam *
 	for(int compno=0;compno<tile->numComponents;compno++)
 	{
 		tilec=&tile->comps[compno];
-
+		//printf ("comp====%d\n",codeBlock->x0);
 		for(int resno=0;resno<tilec->numResolutions;resno++)
 		{
 			resolution=&tilec->resolutions[resno];
-
+			//printf ("reso====%d\n",codeBlock->x0);
 			for(int bandno=0;bandno<resolution->numBands;bandno++)
 			{
 				band=&resolution->bands[bandno];
-
+				//printf ("band====%d\n",codeBlock->x0);
 				for(int preno=0;preno<resolution->precinctWidth*resolution->precinctHeight;preno++)
 				{
 					precinct=&band->precincts[preno];
-
+					//printf ("pre====%d\n",temp->x0);
 					for(int cbno=0;cbno<precinct->codeBlockNumInWidth*precinct->codeBlockNumInHeight;cbno++)
 					{
+						//printf ("cbno==%d==%d\n",cbno,ttemp->x0);
 						codeBlock=&precinct->codeBlockInfo[cbno];
 
 						j2kTileCoder_Resolution *pres;
-						switch(bandno)
+						switch(band->bandno)
 						{
 						case 0://LL
 							x=codeBlock->x0-band->x0;
@@ -120,7 +123,7 @@ void j2kTierOne::tierOneEncodeCodeBlocks(j2kTileCoder_Tile *tile,TileCodeParam *
 							{
 								for(int j=0;j<codeBlock->x1-codeBlock->x0;j++)
 								{
-									int dataLoc=x+j+(y+i)*(tilec->x1-tilec->x0);
+									int dataLoc=(x+j)+(y+i)*(tilec->x1-tilec->x0);
 									tierOneData[i][j]=tilec->data[dataLoc]<<T1_NMSEDEC_FRACBITS;
 								}
 							}
@@ -130,7 +133,7 @@ void j2kTierOne::tierOneEncodeCodeBlocks(j2kTileCoder_Tile *tile,TileCodeParam *
 							{
 								for(int j=0;j<codeBlock->x1-codeBlock->x0;j++)
 								{
-									int dataLoc=x+j+(y+i)*(tilec->x1-tilec->x0);
+									int dataLoc=(x+j)+(y+i)*(tilec->x1-tilec->x0);
 									tierOneData[i][j]=fix_mul(tilec->data[dataLoc],8192*8192/band->stepSize)>>(13-T1_NMSEDEC_FRACBITS);
 								}
 							}
@@ -141,6 +144,8 @@ void j2kTierOne::tierOneEncodeCodeBlocks(j2kTileCoder_Tile *tile,TileCodeParam *
 							orient=2;
 						else if(orient==2)
 							orient=1;
+
+						//printf ("cbno==%d==%d\n",cbno,ttemp->x0);
 
 						tierOneEncodeCodeBlock(codeBlock,tile,orient,compno,tilec->numResolutions-1-resno,tcp->tccps[compno].isReversibleDWT,band->stepSize,tcp->tccps[compno].codeBlockStyle,tile->numComponents);
 					}
@@ -176,19 +181,21 @@ void j2kTierOne::tierOneEncodeCodeBlock(j2kTileCoder_CodeBlock *codeBlock,j2kTil
 
 	int bpsno=codeBlock->numbps-1;
 	int passType=2;
-
+	
 	mqcResetStates();
 	mqcSetState(T1_CTXNO_UNI,0,46);
 	mqcSetState(T1_CTXNO_AGG,0,3);
 	mqcSetState(T1_CTXNO_ZC,0,4);
 	mqcInitEncode(codeBlock->data);
-
+	
 	int type;
 	int nmSeDec;
-	int curWmSeDec=0;//?
+	double curWmSeDec=0;//?
 	int passno;
+	
 	for(passno=0;bpsno>=0;passno++)
 	{
+		//printf ("cb2==%d==%d\n",passno,ttemp->x0);
 		j2kTileCoder_Pass *pass=&codeBlock->passes[passno];
 		int correction=3;
 		type=((bpsno<(codeBlock->numbps-4))&&(passType<2)&&(codeBlockStyle&J2K_CCP_CBLKSTY_LAZY))?T1_TYPE_RAW:T1_TYPE_MQ;
@@ -199,7 +206,7 @@ void j2kTierOne::tierOneEncodeCodeBlock(j2kTileCoder_CodeBlock *codeBlock,j2kTil
 			tierOneSignPass(cbWidth,cbHeight,bpsno,orient,&nmSeDec,type,codeBlockStyle);
 			break;
 		case 1:
-			tierOneRefPass(cbWidth,cbHeight,bpsno,&nmSeDec,type,codeBlockStyle);
+			tierOneRefPass(cbWidth,cbHeight,bpsno,&nmSeDec,type,codeBlockStyle);//此项有问题
 			break;
 		case 2:
 			tierOneCleanPass(cbWidth,cbHeight,bpsno,orient,&nmSeDec,codeBlockStyle);
@@ -208,26 +215,26 @@ void j2kTierOne::tierOneEncodeCodeBlock(j2kTileCoder_CodeBlock *codeBlock,j2kTil
 				mqcSegMarkEncode();/* 模式变化 SEGMARK*/
 
 			break;
-		}
+		}			
+
 		curWmSeDec+=getWmSeDec(nmSeDec,compno,level,orient,bpsno,isDWT,stepSize,numComps);//mod fixed_quality
 		tile->distotile+=getWmSeDec(nmSeDec,compno,level,orient,bpsno,isDWT,stepSize,numComps);//add antonin quality
 
-
 		//以下开始模式变换
-		if((codeBlockStyle*J2K_CCP_CBLKSTY_TERMALL)&&!((passType==2)&&(bpsno-1<0)))
+		if((codeBlockStyle&J2K_CCP_CBLKSTY_TERMALL)&&
+			!((passType==2)&&
+			(bpsno-1<0)))
 		{
 			mqcFlush();
 			correction=1;
 			pass->term=1;
 		}else{
-			if(((bpsno<(codeBlock->numbps-4)&&
-				(passType>0))||
-				((bpsno==(codeBlock->numbps-4))&&
-				(passType==2)))&&(codeBlockStyle&J2K_CCP_CBLKSTY_LAZY))
+			if(((bpsno<(codeBlock->numbps-4)&&(passType>0))||((bpsno==(codeBlock->numbps-4))&&(passType==2)))&&
+				(codeBlockStyle&J2K_CCP_CBLKSTY_LAZY))
 			{
 				mqcFlush();
 				correction=1;
-				pass->term=0;
+				pass->term=1;
 			}else{
 				pass->term=0;
 			}
@@ -238,7 +245,7 @@ void j2kTierOne::tierOneEncodeCodeBlock(j2kTileCoder_CodeBlock *codeBlock,j2kTil
 			passType=0;
 			bpsno--;
 		}
-
+		
 		if(pass->term&&bpsno>0)
 		{
 			type=((bpsno<(codeBlock->numbps-4))&&(passType<2)&&(codeBlockStyle&J2K_CCP_CBLKSTY_LAZY))?T1_TYPE_RAW:T1_TYPE_MQ;
@@ -252,7 +259,7 @@ void j2kTierOne::tierOneEncodeCodeBlock(j2kTileCoder_CodeBlock *codeBlock,j2kTil
 		pass->rate=mqcNumBytes()+correction;
 		if(passno==0)
 		{
-			pass->len=pass->rate-0;
+			pass->len=pass->rate;
 		}else{
 			pass->len=pass->rate-codeBlock->passes[passno-1].rate;
 		}
@@ -267,8 +274,9 @@ void j2kTierOne::tierOneEncodeCodeBlock(j2kTileCoder_CodeBlock *codeBlock,j2kTil
 		mqcErtermEncode();
 	else if(!(codeBlockStyle&J2K_CCP_CBLKSTY_LAZY))//默认模式
 		mqcFlush();
-
+	
 	codeBlock->totalpasses=passno;
+
 }
 void j2kTierOne::mqcResetEncode()
 {
@@ -309,7 +317,6 @@ void j2kTierOne::mqcFlush()
 	if(*mqc_bp!=0xff)
 		mqc_bp++;
 }
-
 void j2kTierOne::mqcErtermEncode()
 {
 	int k=11-mqc_ct+1;
@@ -323,7 +330,6 @@ void j2kTierOne::mqcErtermEncode()
 	if(*mqc_bp!=0xff)
 		mqcByteOut();
 }
-
 void j2kTierOne::mqcSetBits()
 {
 	unsigned int tempc=mqc_c+mqc_a;
@@ -331,6 +337,7 @@ void j2kTierOne::mqcSetBits()
 	if(mqc_c>=tempc)
 		mqc_c-=0x8000;
 }
+
 double j2kTierOne::getWmSeDec(int nmSeDec,int compno,int level,int orient,int bpsno,int isDWT,int stepSize,int numComps)
 {
 	double w1,w2;
@@ -351,7 +358,7 @@ double j2kTierOne::getWmSeDec(int nmSeDec,int compno,int level,int orient,int bp
 			w1=1;
 		w2=dwtGetNormReal(level,orient);
 	}
-	double wmSeDec=w1*w2*(stepSize/8192.0)*(1<bpsno);
+	double wmSeDec=w1*w2*(stepSize/8192.0)*(1<<bpsno);
 	wmSeDec*=wmSeDec*nmSeDec/8192;
 	return wmSeDec;
 }
@@ -546,7 +553,7 @@ void j2kTierOne::tierOneSignPass(int width,int height,int bpsno,int orient,int *
 		{
 			for(int k=i;k<i+4&&k<height;k++)
 			{
-				vsc=((cbstyle&J2K_CCP_CBLKSTY_VSC)&&((k=i+3)||(k=height-1)))?1:0;
+				vsc=((cbstyle&J2K_CCP_CBLKSTY_VSC)&&((k==i+3)||(k==height-1)))?1:0;
 
 				tierOneSignPassStep(&tierOneFlags[1+k][1+j],&tierOneData[k][j],orient,bpsno,one,nmSeDec,type,vsc);
 			}
@@ -562,18 +569,8 @@ void j2kTierOne::tierOneSignPassStep(int *fp, int *dp, int orient, int bpno, int
 	}else{
 		flag=*fp;
 	}
-
-	if((flag&T1_SIG_OTH)&&!(flag&(T1_SIG|T1_VISIT)))
-	{
-		int v;
-		if(int_abs(*dp)&one)
-		{
-			v=1;
-		}else
-		{
-			v=0;
-		}
-
+	if((flag&T1_SIG_OTH)&&!(flag&(T1_SIG|T1_VISIT))){
+		int v=int_abs(*dp)&one?1:0;
 		if(type==T1_TYPE_RAW)
 		{
 			/* BYPASS/LAZY MODE*/
@@ -602,28 +599,19 @@ void j2kTierOne::tierOneSignPassStep(int *fp, int *dp, int orient, int bpno, int
 			tierOneUpdateFlags(fp,v);
 			*fp|=T1_SIG;
 		}
-		*fp|=T1_SIG;
+		*fp|=T1_VISIT;
 	}
 }
-int j2kTierOne::tierOneGetNmSeDecSig(int x,int bitpos)
-{
-	if(bitpos>T1_NMSEDEC_FRACBITS)
-	{
-		int sigLoc=(x>>(bitpos-T1_NMSEDEC_FRACBITS))&((1<<T1_NMSEDEC_FRACBITS)-1);
-		return nmSeDecSig[sigLoc];
-	}else{
-		int sig0Loc=x&((1<<T1_NMSEDEC_FRACBITS)-1);
-		return nmSeDecSig0[sig0Loc];
-	}
-}
+
 
 void j2kTierOne::tierOneRefPass(int width,int height,int bpsno,int *nmSeDec,char type,int cbstyle)
 {
 	*nmSeDec=0;
 	int one=1<<(bpsno+T1_NMSEDEC_FRACBITS);
-
+	
 	int vsc;
-	for(int i=0;i<height;i++)
+
+	for(int i=0;i<height;i+=4)
 	{
 		for(int j=0;j<width;j++)
 		{
@@ -653,6 +641,7 @@ void j2kTierOne::tierOneRefPassStep(int *fp, int *dp, int bpno, int one,int *nms
 	if((flag&(T1_SIG|T1_VISIT))==T1_SIG)
 	{
 		*nmsedec+=tierOneGetNmSeDecRef(int_abs(*dp),bpno+T1_NMSEDEC_FRACBITS);
+
 		int v;
 		if(int_abs(*dp)&one)
 		{
@@ -665,7 +654,7 @@ void j2kTierOne::tierOneRefPassStep(int *fp, int *dp, int bpno, int one,int *nms
 		if(type==T1_TYPE_RAW)
 		{
 			/* BYPASS/LAZY MODE*/
-			mqcSetCurCtx(getCtxNoMAG(flag));/* ESSAI */
+			mqcSetCurCtx(getCtxNoMAG(flag));
 			mqcByPassEncode(v);
 		}else{
 			mqcSetCurCtx(getCtxNoMAG(flag));
@@ -674,15 +663,20 @@ void j2kTierOne::tierOneRefPassStep(int *fp, int *dp, int bpno, int one,int *nms
 		*fp|=T1_REFINE;
 	}
 }
+
 int j2kTierOne::tierOneGetNmSeDecRef(int x,int bitpos)
 {
+	int refLoc;
+	int returns;
 	if(bitpos>T1_NMSEDEC_FRACBITS)
 	{
-		int refLoc=(x>>(bitpos-T1_NMSEDEC_FRACBITS))&((1<<T1_NMSEDEC_BITS)-1);
+		refLoc=(x>>(bitpos-T1_NMSEDEC_FRACBITS))&((1<<T1_NMSEDEC_BITS)-1);
+		returns=nmSeDecRef[refLoc];
 		return nmSeDecRef[refLoc];
 	}else{
-		int ref0Loc=x&((1<<T1_NMSEDEC_BITS)-1);
-		return nmSeDecRef0[ref0Loc];
+		refLoc=x&((1<<T1_NMSEDEC_BITS)-1);
+		returns=nmSeDecRef0[refLoc];
+		return nmSeDecRef0[refLoc];
 	}
 }
 
@@ -739,7 +733,7 @@ void j2kTierOne::tierOneCleanPass(int width,int height,int bpsno,int orient,int 
 
 			for(int k=i+runlen;k<i+4&&k<height;k++)
 			{
-				vsc=((cbstyle&J2K_CCP_CBLKSTY_VSC)&&((k=i+3)||(k=height-1)))?1:0;
+				vsc=((cbstyle&J2K_CCP_CBLKSTY_VSC)&&((k==i+3)||(k==height-1)))?1:0;
 				tierOneClnPassStep(&tierOneFlags[k+1][j+1],&tierOneData[k][j],orient,bpsno,one,nmSeDec,agg&&(k==i+runlen),vsc);
 			}
 		}
@@ -762,7 +756,7 @@ void j2kTierOne::tierOneClnPassStep(int *fp, int *dp, int orient, int bpsno, int
 			v=1;
 		else
 			v=0;
-		mqcEncode((v^getSPB(flag)));
+		mqcEncode(v^getSPB(flag));
 		tierOneUpdateFlags(fp,v);
 		*fp|=T1_SIG;
 	}else{
@@ -782,7 +776,7 @@ void j2kTierOne::tierOneClnPassStep(int *fp, int *dp, int orient, int bpsno, int
 					v=1;
 				else
 					v=0;
-				mqcEncode((v^getSPB(flag)));
+				mqcEncode(v^getSPB(flag));
 				tierOneUpdateFlags(fp,v);
 				*fp|=T1_SIG;
 			}
@@ -830,7 +824,7 @@ void j2kTierOne::mqcCodeMPS()
 
 	if((mqc_a&0x8000)==0)
 	{
-		if(mqc_a=(*mqcCurCtx)->qeval)
+		if(mqc_a<(*mqcCurCtx)->qeval)
 			mqc_a=(*mqcCurCtx)->qeval;
 		else
 			mqc_c+=(*mqcCurCtx)->qeval;
@@ -844,8 +838,8 @@ void j2kTierOne::mqcCodeMPS()
 void j2kTierOne::mqcRenormalize()
 {
 	do{
-		mqc_a=mqc_a<<1;
-		mqc_c=mqc_c<<1;
+		mqc_a<<=1;
+		mqc_c<<=1;
 		mqc_ct--;
 		if(mqc_ct==0)
 		{
@@ -889,7 +883,7 @@ void j2kTierOne::mqcByteOut()
 
 void j2kTierOne::mqcCodeLPS()
 {
-	mqc_a=mqc_a-(*mqcCurCtx)->qeval;
+	mqc_a-=(*mqcCurCtx)->qeval;
 	if(mqc_a<(*mqcCurCtx)->qeval)
 	{
 		mqc_c+=(*mqcCurCtx)->qeval;
@@ -926,11 +920,22 @@ int j2kTierOne::getCtxNoSC(int flag)
 }
 int j2kTierOne::getCtxNoMAG(int flag)
 {
-	return maContextNo[(flag&T1_SIG_OTH)|(((flag*T1_REFINE)!=0)<<11)];
+	return maContextNo[(flag&T1_SIG_OTH)|(((flag&T1_REFINE)!=0)<<11)];
 }
 int j2kTierOne::getSPB(int flag)
 {
 	return spbNo[(flag&(T1_SIG_PRIM|T1_SGN))>>4];
 }
-
+int j2kTierOne::tierOneGetNmSeDecSig(int x,int bitpos)
+{
+	int sigLoc;
+	if(bitpos>T1_NMSEDEC_FRACBITS)
+	{
+		sigLoc=(x>>(bitpos-T1_NMSEDEC_FRACBITS))&((1<<T1_NMSEDEC_BITS)-1);
+		return nmSeDecSig[sigLoc];
+	}else{
+		sigLoc=x&((1<<T1_NMSEDEC_BITS)-1);
+		return nmSeDecSig0[sigLoc];
+	}
+}
 

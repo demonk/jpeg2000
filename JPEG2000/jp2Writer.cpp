@@ -1,11 +1,14 @@
 #include "jp2Writer.h"
+#include "charInputOutput.h"
 
-int jp2Writer::encode(jp2Struct *jp2_struct,CodeParam *cp,char *output)
+int jp2Writer::encode(jp2Struct *jp2_struct,CodeParam *cp,char *outbuf)
 {
+	charInputOutput::init((unsigned char*)outbuf,cp->XTsiz*cp->YTsiz*cp->tw*cp->th*10);//初始化
+
 	writeSignature();/*　写入signature框到buffer */
 	writeFileType(jp2_struct);/* 写入 FILE_TYPE框到buffer */
 	writeHeader(jp2_struct);/* 写入JP2 HEADER框到buffer */
-	int len = writeContent(jp2_struct->image, cp, output);
+	int len = writeContent(jp2_struct->image, cp, outbuf);
 	return charInputOutput::getPosition();
 }
 

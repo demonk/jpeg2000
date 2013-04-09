@@ -12,8 +12,8 @@ public:
 	int codeBlockHeight;
 	int codeBlockStyle;
 	int quantisationStyle;
-	int numGuardBits;
-	bool isROI;
+	int numGuardBits;/* number of Guard bits */
+	int isROI;
 	int isReversibleDWT;
 	int precinctWidth[33];
 	int precinctHeight[33];

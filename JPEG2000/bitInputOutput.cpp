@@ -1,5 +1,6 @@
 #ifndef BIT_IO_STREAM
 #define BIT_IO_STREAM
+#include "bitInputOutput.h"
 
 namespace bitInputOutput{
 	static unsigned char *bio_start;
@@ -8,21 +9,6 @@ namespace bitInputOutput{
 
 	static unsigned int bio_buf;
 	static unsigned int bio_ct;
-
-
-	static int getPosition();
-	static void initEncoder(unsigned char *bp,int len);
-
-	static void writeBit(int b);
-	static void writeBits(int v,int n);
-	static int writeByte();
-
-	static int readBit();
-	static int readBits(int n);
-	static int readByte();
-
-	static int flush();
-	static int inAlign();
 
 	void initEncoder(unsigned char *bp,int len)
 	{
@@ -51,7 +37,7 @@ namespace bitInputOutput{
 			writeByte();
 
 		bio_ct--;
-		bio_buf=bio_buf|b<<bio_ct;
+		bio_buf=bio_buf|(b<<bio_ct);
 	}
 	void writeBits(int v,int n)
 	{
@@ -59,14 +45,6 @@ namespace bitInputOutput{
 		{
 			writeBit((v>>i)&1);
 		}
-	}
-	int readBit()
-	{
-		if(bio_ct==0)
-			readByte();
-
-		bio_ct--;
-		return (bio_buf>>bio_ct)&1;
 	}
 	int readByte()
 	{
@@ -76,6 +54,14 @@ namespace bitInputOutput{
 			return 1;
 		bio_buf=bio_buf|*bio_bp++;
 		return 0;
+	}
+	int readBit()
+	{
+		if(bio_ct==0)
+			readByte();
+
+		bio_ct--;
+		return (bio_buf>>bio_ct)&1;
 	}
 	int readBits(int n)
 	{

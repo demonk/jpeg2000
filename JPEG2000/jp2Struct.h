@@ -1,7 +1,22 @@
 #ifndef JP2_STRUCT
 #define JP2_STRUCT
+#include <malloc.h>
 #include "jp2Component.h"
 #include "jp2Image.h"
+
+//标准框标识
+#define JPIP_JPIP 0x6a706970
+#define JP2_JP   0x6a502020
+#define JP2_FTYP 0x66747970
+#define JP2_JP2H 0x6a703268
+#define JP2_IHDR 0x69686472
+#define JP2_COLR 0x636f6c72
+#define JP2_JP2C 0x6a703263
+#define JP2_URL  0x75726c20
+#define JP2_DBTL 0x6474626c
+#define JP2_BPCC 0x62706363
+#define JP2_JP2  0x6a703220
+
 /************************************************************************/
 /* JP2 框结构                                                                     */
 /************************************************************************/
@@ -26,5 +41,8 @@ public:
 
   jp2Component *comps;
   jp2Image *image;
+
+public:
+	int jp2StructInit(jp2Image *img);
 };
 #endif

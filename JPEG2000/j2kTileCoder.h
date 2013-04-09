@@ -34,7 +34,7 @@ private:
 
 private:
 
-	j2kTileCoder_Image image;/* 当前tile分量图像 */
+	j2kTileCoder_Image *image;/* 当前tile分量图像 */
 	
 	jp2Image *img;/* 当前图像引用 */
 	CodeParam *cp;
@@ -52,6 +52,9 @@ private:
 
 public:
 	j2kTileCoder(CodeParam *comp,jp2Image *image,int currentTile);
+	~j2kTileCoder();
+
+	void setCurrentTile(int number);
 
 	void tcdMallocEncode();
 	void tcdInitEncode();
@@ -74,6 +77,7 @@ private:
 	void makeLayer(int layerno,double thresh,int final);
 	void rateAllocate(unsigned char *dest,int len,j2kTierTwo *tierTwo);
 	void rateAllocateFixed();
+
 
 	int dwtGetGain(int orient);
 };

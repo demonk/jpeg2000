@@ -7,7 +7,7 @@ class CodeParam
 	{
 	public:
 		int format;
-		bool isIntermedFile;/* 是否分开几个文件储 */
+		int isIntermedFile;/* 是否分开几个文件储 */
 		int imageType;
 		int XTOsiz;
 		int YTOsiz;

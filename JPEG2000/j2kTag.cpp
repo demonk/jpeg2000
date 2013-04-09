@@ -1,4 +1,5 @@
 #include "j2kTag.h"
+#include "bitInputOutput.h"
 
 void j2kTag::resetTag(j2kTagTree *tree)
 {
@@ -70,7 +71,7 @@ void j2kTag::encode(j2kTagTree *tree,int leafno,int threashOld)
 
 		if(stkPointer==stk)
 			break;
-		node=*(--stkPointer);
+		node=*--stkPointer;
 
 	}
 }
@@ -141,3 +142,9 @@ j2kTagTree* j2kTag::createTagTree(int sh,int sv)
 	return tree;
 }
 
+
+void j2kTag::destory(j2kTagTree *tree)
+{
+	free(tree->nodes);
+	free(tree);
+}
